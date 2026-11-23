@@ -7,6 +7,7 @@ import {
     LogOut,
     PanelLeftClose,
     PanelLeftOpen,
+    User,
 } from "lucide-react";
 
 const TOKEN_KEY = "admin_gupt";
@@ -15,6 +16,7 @@ const navItems = [
     { label: "Donation", to: "/admin/donations", icon: IndianRupee },
     { label: "Donation Package", to: "/admin/donation-packages", icon: Package },
     { label: "Puja Updates", to: "/admin/puja-updates", icon: Bell },
+    { label: "All Users", to: "/admin/all-users", icon: User },
 ];
 
 const AdminSidebar = ({ open, onClose, onOpen }) => {
@@ -27,10 +29,9 @@ const AdminSidebar = ({ open, onClose, onOpen }) => {
     };
 
     const linkClass = ({ isActive }) =>
-        `flex items-center gap-3 px-4 py-3 rounded-xl font-semibold text-sm transition-all duration-200 ${
-            isActive
-                ? "bg-[#e7c66b] text-[#4a0a0d] shadow-sm shadow-black/20"
-                : "text-[#e7c66b]/80 hover:bg-[#e7c66b]/10 hover:text-[#e7c66b]"
+        `flex items-center gap-3 px-4 py-3 rounded-xl font-semibold text-sm transition-all duration-200 ${isActive
+            ? "bg-[#e7c66b] text-[#4a0a0d] shadow-sm shadow-black/20"
+            : "text-[#e7c66b]/80 hover:bg-[#e7c66b]/10 hover:text-[#e7c66b]"
         }`;
 
     return (
@@ -47,9 +48,8 @@ const AdminSidebar = ({ open, onClose, onOpen }) => {
             <button
                 type="button"
                 onClick={open ? onClose : onOpen}
-                className={`fixed top-4 z-[60] flex h-10 w-10 items-center justify-center rounded-xl border border-[#e7c66b]/30 bg-[#4a0a0d] text-[#e7c66b] shadow-lg transition-all duration-300 hover:bg-[#5c1217] print:hidden ${
-                    open ? "left-[264px] md:left-[264px]" : "left-3"
-                }`}
+                className={`fixed top-4 z-[60] flex h-10 w-10 items-center justify-center rounded-xl border border-[#e7c66b]/30 bg-[#4a0a0d] text-[#e7c66b] shadow-lg transition-all duration-300 hover:bg-[#5c1217] print:hidden ${open ? "left-[264px] md:left-[264px]" : "left-3"
+                    }`}
                 aria-label={open ? "Close admin sidebar" : "Open admin sidebar"}
                 title={open ? "Close sidebar" : "Open sidebar"}
             >
@@ -62,9 +62,8 @@ const AdminSidebar = ({ open, onClose, onOpen }) => {
 
             {/* Fixed Sidebar */}
             <aside
-                className={`fixed top-0 left-0 z-50 flex h-dvh w-64 flex-col overflow-hidden border-r border-[#e7c66b]/15 bg-[#4a0a0d] transition-transform duration-300 ease-in-out print:hidden ${
-                    open ? "translate-x-0" : "-translate-x-full"
-                }`}
+                className={`fixed top-0 left-0 z-50 flex h-dvh w-64 flex-col overflow-hidden border-r border-[#e7c66b]/15 bg-[#4a0a0d] transition-transform duration-300 ease-in-out print:hidden ${open ? "translate-x-0" : "-translate-x-full"
+                    }`}
             >
                 {/* Logo Section */}
                 <div className="flex shrink-0 items-center justify-between px-5 py-5 border-b border-[#e7c66b]/15">

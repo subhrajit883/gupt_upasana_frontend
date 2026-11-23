@@ -1,13 +1,15 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
 import {
-    Package,Plus,Pencil,Trash2,RefreshCw,X,Search,Filter,CheckCircle2,XCircle,AlertCircle,IndianRupee,CalendarDays,Sparkles,ListChecks,Gift,Layers,
+    Package,Plus,Pencil,Trash2,RefreshCw,X,Search,Filter,CheckCircle2,XCircle,AlertCircle,IndianRupee,CalendarDays,Sparkles,ListChecks,Gift,Layers,ImagePlus,Upload,
 } from "lucide-react";
 import { donationUrl } from "../config/config";
+import { handleAdminAuthError } from "./adminAuthGuard";
 
 const TOKEN_KEY = "admin_gupt";
+const MAX_IMG_BYTES = 200 * 1024;
 
 const fieldClass =
     "w-full px-4 py-3 text-sm border border-gray-200 rounded-xl outline-none focus:border-[#e7c66b] focus:ring-2 focus:ring-[#e7c66b]/20 bg-white text-gray-800";
@@ -73,6 +75,11 @@ const AdminDonPackage = () => {
     const [deleteTarget, setDeleteTarget] = useState(null);
     const [deleting, setDeleting] = useState(false);
 
+    const [imageFile, setImageFile] = useState(null);
+    const [imagePreview, setImagePreview] = useState("");
+    const [imageError, setImageError] = useState("");
+    const fileInputRef = useRef(null);
+
     // ── Fetch ────────────────────────────────────────────────────────────────
     const fetchPackages = async () => {
         try {
@@ -87,6 +94,7 @@ const AdminDonPackage = () => {
                 setError("Unable to fetch packages.");
             }
         } catch (err) {
+            if (handleAdminAuthError(err, navigate)) return;
             setError(
                 err.response?.data?.message ||
                 "Something went wrong while fetching packages."
@@ -149,10 +157,40 @@ const AdminDonPackage = () => {
             [key]: prev[key].filter((_, i) => i !== index),
         }));
 
+    const handleImageChange = (e) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+
+        if (!file.type.startsWith("image/")) {
+            setImageError("Only image files (PNG, JPG, WEBP) are allowed.");
+            return;
+        }
+        if (file.size > MAX_IMG_BYTES) {
+            setImageError("Image must be 200KB or smaller.");
+            return;
+        }
+
+        if (imagePreview?.startsWith("blob:")) URL.revokeObjectURL(imagePreview);
+        setImageError("");
+        setImageFile(file);
+        setImagePreview(URL.createObjectURL(file));
+    };
+
+    const clearImage = () => {
+        if (imagePreview?.startsWith("blob:")) URL.revokeObjectURL(imagePreview);
+        setImageFile(null);
+        setImagePreview(editing?.packageImg?.url || "");
+        setImageError("");
+        if (fileInputRef.current) fileInputRef.current.value = "";
+    };
+
     const openCreate = () => {
         setEditing(null);
         setForm({ ...emptyForm, amounts: [{ amount: "", label: "" }], benefits: [""], rules: [""] });
         setFormError("");
+        setImageFile(null);
+        setImagePreview("");
+        setImageError("");
         setModalOpen(true);
     };
 
@@ -176,6 +214,9 @@ const AdminDonPackage = () => {
             active: pkg.active !== false,
         });
         setFormError("");
+        setImageFile(null);
+        setImagePreview(pkg.packageImg?.url || "");
+        setImageError("");
         setModalOpen(true);
     };
 
@@ -222,8 +263,6 @@ const AdminDonPackage = () => {
             payload.maxAmt = Number(form.maxAmt);
             payload.amounts = [];
         } else {
-            payload.minAmt = null;
-            payload.maxAmt = null;
             payload.amounts = form.amounts
                 .filter((a) => Number(a.amount) > 0)
                 .map((a) => ({
@@ -239,6 +278,38 @@ const AdminDonPackage = () => {
         }
 
         return payload;
+    };
+
+    // The API accepts multipart/form-data (required for the package image),
+    // so the payload is sent as form fields.
+    const buildFormData = () => {
+        const payload = buildPayload();
+        const formData = new FormData();
+
+        formData.append("name", payload.name);
+        formData.append("description", payload.description);
+        formData.append("category", payload.category);
+        formData.append("active", String(payload.active));
+        formData.append("allowCustomAmount", String(payload.allowCustomAmount));
+        formData.append("benefits", JSON.stringify(payload.benefits));
+        formData.append("rules", JSON.stringify(payload.rules));
+
+        if (payload.allowCustomAmount) {
+            formData.append("minAmt", String(payload.minAmt));
+            formData.append("maxAmt", String(payload.maxAmt));
+            formData.append("amounts", JSON.stringify([]));
+        } else {
+            formData.append("amounts", JSON.stringify(payload.amounts));
+        }
+
+        if (payload.category === "dynamic") {
+            formData.append("startDate", payload.startDate);
+            formData.append("endDate", payload.endDate);
+        }
+
+        if (imageFile) formData.append("packageImg", imageFile);
+
+        return formData;
     };
 
     // ── Create / Update ──────────────────────────────────────────────────────
@@ -262,20 +333,21 @@ const AdminDonPackage = () => {
         setFormError("");
 
         try {
-            const payload = buildPayload();
+            const formData = buildFormData();
             const config = { headers: { Authorization: `Bearer ${token}` } };
 
             if (editing) {
-                await axios.patch(`${donationUrl.packages}/${editing._id}`, payload, config);
+                await axios.patch(`${donationUrl.packages}/${editing._id}`, formData, config);
                 toast.success("Package updated successfully");
             } else {
-                await axios.post(donationUrl.packages, payload, config);
+                await axios.post(donationUrl.packages, formData, config);
                 toast.success("Package created successfully");
             }
 
             setModalOpen(false);
             fetchPackages();
         } catch (err) {
+            if (handleAdminAuthError(err, navigate)) return;
             setFormError(err.response?.data?.message || "Unable to save package.");
         } finally {
             setSaving(false);
@@ -300,6 +372,7 @@ const AdminDonPackage = () => {
             setDeleteTarget(null);
             fetchPackages();
         } catch (err) {
+            if (handleAdminAuthError(err, navigate)) return;
             toast.error(err.response?.data?.message || "Unable to delete package.");
         } finally {
             setDeleting(false);
@@ -525,6 +598,20 @@ const AdminDonPackage = () => {
                         >
                             <div className="h-1.5 bg-gradient-to-r from-[#4a0a0d] via-[#e7c66b] to-[#4a0a0d]" />
 
+                            <div className="relative h-40 bg-[#fcfaf5] overflow-hidden">
+                                {pkg.packageImg?.url ? (
+                                    <img
+                                        src={pkg.packageImg.url}
+                                        alt={pkg.name}
+                                        className="w-full h-full object-cover"
+                                    />
+                                ) : (
+                                    <div className="w-full h-full flex items-center justify-center text-[#e0d9c8]">
+                                        <ImagePlus size={40} />
+                                    </div>
+                                )}
+                            </div>
+
                             <div className="p-5 flex-1 flex flex-col">
                                 <div className="flex items-start justify-between gap-3">
                                     <h3 className="text-base font-bold text-[#4a0a0d] leading-snug">
@@ -730,6 +817,68 @@ const AdminDonPackage = () => {
                                             />
                                         </span>
                                     </button>
+                                </div>
+                            </div>
+
+                            {/* Package image */}
+                            <div className="rounded-2xl border border-[#f0ece4] bg-[#fcfaf5] p-5">
+                                <div className="flex items-center gap-2 mb-4">
+                                    <ImagePlus size={16} className="text-[#98701b]" />
+                                    <h4 className="text-sm font-bold text-[#4a0a0d]">Package Image</h4>
+                                    <span className="text-xs text-gray-400 font-medium">(max 200KB)</span>
+                                </div>
+
+                                <div className="flex flex-col sm:flex-row gap-4">
+                                    <div className="w-full sm:w-40 h-32 shrink-0 rounded-xl border border-dashed border-[#e0d9c8] bg-white overflow-hidden flex items-center justify-center">
+                                        {imagePreview ? (
+                                            <img
+                                                src={imagePreview}
+                                                alt="Package preview"
+                                                className="w-full h-full object-cover"
+                                            />
+                                        ) : (
+                                            <div className="flex flex-col items-center gap-2 text-gray-300">
+                                                <ImagePlus size={28} />
+                                                <span className="text-xs font-medium">No image</span>
+                                            </div>
+                                        )}
+                                    </div>
+
+                                    <div className="flex-1 flex flex-col justify-center">
+                                        <input
+                                            ref={fileInputRef}
+                                            type="file"
+                                            accept="image/png,image/jpeg,image/jpg,image/webp"
+                                            onChange={handleImageChange}
+                                            className="hidden"
+                                        />
+                                        <div className="flex flex-wrap items-center gap-3">
+                                            <button
+                                                type="button"
+                                                onClick={() => fileInputRef.current?.click()}
+                                                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#4a0a0d] text-[#e7c66b] font-semibold text-sm hover:bg-[#641116] transition"
+                                            >
+                                                <Upload size={15} />
+                                                {imagePreview ? "Change Image" : "Upload Image"}
+                                            </button>
+                                            {imagePreview && (
+                                                <button
+                                                    type="button"
+                                                    onClick={clearImage}
+                                                    className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-red-50 text-red-600 font-semibold text-sm hover:bg-red-100 transition"
+                                                >
+                                                    <X size={15} />
+                                                    Remove
+                                                </button>
+                                            )}
+                                        </div>
+                                        <p className="text-xs text-gray-400 mt-3">
+                                            PNG, JPG or WEBP. Recommended square image, up to 200KB.
+                                        </p>
+                                        {imageError && (
+                                            <p className="text-xs text-red-600 mt-2">{imageError}</p>
+                                        )}
+                                    </div>
                                 </div>
                             </div>
 

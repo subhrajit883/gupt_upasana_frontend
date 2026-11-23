@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import PujaNotificationBell from "./PujaNotificationBell";
 
@@ -27,10 +27,20 @@ const navLinks = [
 
 const Navbar = () => {
     const location = useLocation();
+    const navigate = useNavigate();
     const [menuOpen, setMenuOpen] = useState(false);
     const [dropdownOpen, setDropdownOpen] = useState(false);
-    const { isLoggedIn, user } = useAuth();
-    
+    const [userMenuOpen, setUserMenuOpen] = useState(false);
+    const { isLoggedIn, user, logout } = useAuth();
+
+    const handleLogout = () => {
+        setUserMenuOpen(false);
+        setMenuOpen(false);
+        localStorage.removeItem("gupt upasana");
+        logout();
+        navigate("/");
+    };
+
     return (
         <nav className="bg-[#6b0000] border-b border-[#e7c652]/20 sticky top-0 z-50 shadow-lg shadow-black/40">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -106,13 +116,60 @@ const Navbar = () => {
                         </div>
 
                         {isLoggedIn ? (
-                            <div className="ml-2 flex items-center gap-2 bg-[#e7c652]/10 border border-[#e7c652]/30 rounded-full pl-1.5 pr-4 py-1.5">
-                                <span className="w-7 h-7 rounded-full bg-[#e7c652] text-[#6b0000] flex items-center justify-center">
-                                    <UserIcon className="w-4 h-4" />
-                                </span>
-                                <span className="text-[#e7c652] font-semibold text-sm max-w-[140px] truncate">
-                                    {user?.name || "User"}
-                                </span>
+                            <div
+                                className="relative ml-2"
+                                onMouseEnter={() => setUserMenuOpen(true)}
+                                onMouseLeave={() => setUserMenuOpen(false)}
+                            >
+                                <button
+                                    type="button"
+                                    className="flex items-center gap-2 bg-[#e7c652]/10 border border-[#e7c652]/30 rounded-full pl-1.5 pr-4 py-1.5 hover:bg-[#e7c652]/20 transition"
+                                >
+                                    <span className="w-7 h-7 rounded-full bg-[#e7c652] text-[#6b0000] flex items-center justify-center">
+                                        <UserIcon className="w-4 h-4" />
+                                    </span>
+                                    <span className="text-[#e7c652] font-semibold text-sm max-w-[140px] truncate">
+                                        {user?.name || "User"}
+                                    </span>
+                                    <svg className={`w-3 h-3 text-[#e7c652]/70 transition-transform ${userMenuOpen ? "rotate-180" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                    </svg>
+                                </button>
+
+                                {userMenuOpen && (
+                                    <div className="absolute right-0 top-full pt-2 w-52 z-50">
+                                        <div className="bg-[#1a0a00] border border-[#e7c652]/20 rounded-xl shadow-xl shadow-black/50 overflow-hidden py-1">
+                                            <Link
+                                                to="/my-profile"
+                                                onClick={() => setUserMenuOpen(false)}
+                                                className="flex items-center gap-3 px-4 py-2.5 text-sm text-[#e7c652]/80 hover:text-[#e7c652] hover:bg-[#e7c652]/10 transition"
+                                            >
+                                                <UserIcon className="w-4 h-4" />
+                                                View Profile
+                                            </Link>
+                                            <Link
+                                                to="/my-donations"
+                                                onClick={() => setUserMenuOpen(false)}
+                                                className="flex items-center gap-3 px-4 py-2.5 text-sm text-[#e7c652]/80 hover:text-[#e7c652] hover:bg-[#e7c652]/10 transition"
+                                            >
+                                                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                                                </svg>
+                                                My Donations
+                                            </Link>
+                                            <button
+                                                type="button"
+                                                onClick={handleLogout}
+                                                className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-red-400 hover:text-red-300 hover:bg-red-500/10 transition border-t border-[#e7c652]/10"
+                                            >
+                                                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                                                </svg>
+                                                Logout
+                                            </button>
+                                        </div>
+                                    </div>
+                                )}
                             </div>
                         ) : (
                             <Link

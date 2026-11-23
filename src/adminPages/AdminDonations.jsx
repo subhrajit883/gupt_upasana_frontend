@@ -1,5 +1,6 @@
 
 import React, { useEffect, useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import {
     Search,
@@ -22,8 +23,10 @@ import {
     AlertCircle
 } from "lucide-react";
 import { donationUrl } from "../config/config";
+import { handleAdminAuthError } from "./adminAuthGuard";
 
 const AdminDonations = () => {
+    const navigate = useNavigate();
     const [donations, setDonations] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
@@ -65,7 +68,7 @@ const AdminDonations = () => {
             }
         } catch (err) {
             console.error("Fetch donations error:", err);
-
+            if (handleAdminAuthError(err, navigate)) return;
             setError(
                 err.response?.data?.message ||
                 "Something went wrong while fetching donations."
@@ -197,9 +200,8 @@ const AdminDonations = () => {
 
         return (
             <span
-                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs font-semibold capitalize ${
-                    styles[status] || "bg-gray-50 text-gray-600 border-gray-200"
-                }`}
+                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs font-semibold capitalize ${styles[status] || "bg-gray-50 text-gray-600 border-gray-200"
+                    }`}
             >
                 {icons[status] || <AlertCircle size={13} />}
                 {status || "Unknown"}
@@ -272,7 +274,7 @@ const AdminDonations = () => {
             </div>
 
             {/* Statistics */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 mb-6">
 
                 <StatCard
                     title="Total Donations"
@@ -290,13 +292,13 @@ const AdminDonations = () => {
                     color="bg-[#fbf2d9] text-[#98701b]"
                 />
 
-                <StatCard
+                {/* <StatCard
                     title="Pending Amount"
                     value={formatCurrency(stats.pendingAmount)}
                     subtitle={`${stats.pending} pending donations`}
                     icon={Clock}
                     color="bg-orange-50 text-orange-600"
-                />
+                /> */}
 
                 <StatCard
                     title="Successful Payments"
@@ -340,7 +342,7 @@ const AdminDonations = () => {
                 </div>
             </div> */}
 
-            {/* Error State */}
+            {/* Error State
             {error && (
                 <div className="bg-red-50 border border-red-200 rounded-xl p-4 mb-6 flex items-center gap-3">
                     <AlertCircle className="text-red-600 shrink-0" size={20} />
@@ -357,7 +359,7 @@ const AdminDonations = () => {
                     </button>
                 </div>
             )}
-
+ */}
             {/* Donations Table Section */}
             <div className="bg-white rounded-2xl border border-[#eee8dc] shadow-sm overflow-hidden">
 
@@ -386,7 +388,7 @@ const AdminDonations = () => {
 
                                 <input
                                     type="text"
-                                    placeholder="Search donor, phone, receipt..."
+                                    placeholder="Search donor, phone"
                                     value={search}
                                     onChange={(e) => setSearch(e.target.value)}
                                     className="w-full sm:w-64 pl-10 pr-4 py-2.5 text-sm border border-gray-200 rounded-xl outline-none focus:border-[#e7c66b] focus:ring-2 focus:ring-[#e7c66b]/20"
@@ -414,7 +416,7 @@ const AdminDonations = () => {
                             </div>
 
                             {/* Receipt Filter */}
-                            <select
+                            {/* <select
                                 value={receiptFilter}
                                 onChange={(e) => setReceiptFilter(e.target.value)}
                                 className="w-full sm:w-40 px-3 py-2.5 text-sm border border-gray-200 rounded-xl outline-none focus:border-[#e7c66b] bg-white"
@@ -422,7 +424,7 @@ const AdminDonations = () => {
                                 <option value="all">All Receipts</option>
                                 <option value="generated">Generated</option>
                                 <option value="not-generated">Not Generated</option>
-                            </select>
+                            </select> */}
 
                         </div>
                     </div>
@@ -465,11 +467,11 @@ const AdminDonations = () => {
                             <thead>
                                 <tr className="bg-[#fcfaf5] text-xs uppercase tracking-wider text-gray-500">
                                     <th className="px-5 py-4 font-semibold">Donor</th>
-                                    <th className="px-5 py-4 font-semibold">Receipt No.</th>
+                                    {/* <th className="px-5 py-4 font-semibold">Receipt No.</th> */}
                                     <th className="px-5 py-4 font-semibold">Package</th>
                                     <th className="px-5 py-4 font-semibold">Amount</th>
                                     <th className="px-5 py-4 font-semibold">Payment</th>
-                                    <th className="px-5 py-4 font-semibold">Receipt</th>
+                                    {/* <th className="px-5 py-4 font-semibold">Receipt</th> */}
                                     <th className="px-5 py-4 font-semibold">Date</th>
                                     <th className="px-5 py-4 font-semibold text-center">Action</th>
                                 </tr>
@@ -488,9 +490,9 @@ const AdminDonations = () => {
                                             {/* Donor */}
                                             <td className="px-5 py-4">
                                                 <div className="flex items-center gap-3">
-                                                    <div className="w-10 h-10 rounded-full bg-[#f8edf0] text-[#4a0a0d] flex items-center justify-center font-bold text-sm shrink-0">
+                                                    {/* <div className="w-10 h-10 rounded-full bg-[#f8edf0] text-[#4a0a0d] flex items-center justify-center font-bold text-sm shrink-0">
                                                         {donor.name?.charAt(0)?.toUpperCase() || "D"}
-                                                    </div>
+                                                    </div> */}
 
                                                     <div>
                                                         <p className="text-sm font-semibold text-gray-800">
@@ -505,11 +507,11 @@ const AdminDonations = () => {
                                             </td>
 
                                             {/* Receipt Number */}
-                                            <td className="px-5 py-4">
+                                            {/* <td className="px-5 py-4">
                                                 <p className="text-xs font-semibold text-[#4a0a0d]">
                                                     {donation.receiptNo || "Not assigned"}
                                                 </p>
-                                            </td>
+                                            </td> */}
 
                                             {/* Package */}
                                             <td className="px-5 py-4">
@@ -531,7 +533,7 @@ const AdminDonations = () => {
                                             </td>
 
                                             {/* Receipt Status */}
-                                            <td className="px-5 py-4">
+                                            {/* <td className="px-5 py-4">
                                                 {donation.receiptGenerated ? (
                                                     <span className="inline-flex items-center gap-1 text-xs font-semibold text-green-700">
                                                         <CheckCircle2 size={14} />
@@ -543,7 +545,7 @@ const AdminDonations = () => {
                                                         Pending
                                                     </span>
                                                 )}
-                                            </td>
+                                            </td> */}
 
                                             {/* Date */}
                                             <td className="px-5 py-4">
@@ -664,7 +666,7 @@ const AdminDonations = () => {
                                 ["Amount", formatCurrency(selectedDonation.amount, selectedDonation.currency)],
                                 ["Payment Method", selectedDonation.paymentMethod],
                                 ["Payment Status", selectedDonation.paymentStatus],
-                                ["Receipt Status", selectedDonation.receiptGenerated ? "Generated" : "Not Generated"],
+                                // ["Receipt Status", selectedDonation.receiptGenerated ? "Generated" : "Not Generated"],
                                 ["Created At", formatDate(selectedDonation.createdAt)],
                                 ["Payment Captured At", formatDate(selectedDonation.paymentCapturedAt)],
                                 ["Razorpay Order ID", selectedDonation.razorpayOrderId],

@@ -97,7 +97,7 @@ const PujaPushNotificationPrompt = () => {
                 disabled={loading}
                 className="flex-1 py-2 px-3 rounded-xl bg-gradient-to-r from-[#e7c652] to-[#ffd700] text-[#1a0a00] font-black text-xs hover:shadow-lg hover:shadow-[#e7c652]/20 transition-all duration-200 disabled:opacity-60 flex items-center justify-center gap-1.5"
               >
-                <span>🙏</span>
+                {/* <span>🙏</span> */}
                 <span>{loading ? "Enabling…" : "Allow Alerts"}</span>
               </button>
 

@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { pujaUpdatesUrl } from "../../config/config";
+import { handleAdminAuthError } from "../adminAuthGuard";
 
 const TOKEN_KEY = "admin_gupt";
 
@@ -74,6 +75,7 @@ export const usePujaUpdates = () => {
                 setError("Unable to fetch updates.");
             }
         } catch (err) {
+            if (handleAdminAuthError(err, navigate)) return;
             setError(err.response?.data?.message || err.message || "Failed to load puja updates.");
         } finally {
             setLoading(false);
@@ -172,6 +174,7 @@ export const usePujaUpdates = () => {
             setModalOpen(false);
             fetchUpdates();
         } catch (err) {
+            if (handleAdminAuthError(err, navigate)) return;
             toast.error(err.response?.data?.message || "Unable to save update.");
         } finally {
             setSaving(false);
@@ -188,6 +191,7 @@ export const usePujaUpdates = () => {
             setDeleteTarget(null);
             fetchUpdates();
         } catch (err) {
+            if (handleAdminAuthError(err, navigate)) return;
             toast.error(err.response?.data?.message || "Failed to delete update.");
         } finally {
             setDeleting(false);
@@ -203,6 +207,7 @@ export const usePujaUpdates = () => {
             toast.success(res.data?.message || "Push notification broadcasted successfully!", { id: toastId });
             fetchUpdates();
         } catch (err) {
+            if (handleAdminAuthError(err, navigate)) return;
             toast.error(err.response?.data?.message || "Failed to send push notification.", { id: toastId });
         } finally {
             setSendingPushId(null);

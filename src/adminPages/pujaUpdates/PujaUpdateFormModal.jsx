@@ -57,7 +57,7 @@ const PujaUpdateFormModal = ({ editing, form, setForm, saving, onSubmit, onClose
                     </div>
 
                     <div>
-                        <label className={labelClass}>Message Content / Push Payload *</label>
+                        <label className={labelClass}>Message Content *</label>
                         <textarea
                             value={form.message}
                             onChange={(e) => setForm({ ...form, message: e.target.value })}
@@ -84,17 +84,15 @@ const PujaUpdateFormModal = ({ editing, form, setForm, saving, onSubmit, onClose
                             <button
                                 type="button"
                                 onClick={() => setForm({ ...form, published: !form.published })}
-                                className={`w-full flex items-center justify-between px-4 py-3 rounded-xl border text-sm font-semibold transition ${
-                                    form.published
-                                        ? "bg-green-50 border-green-200 text-green-700"
-                                        : "bg-gray-50 border-gray-200 text-gray-500"
-                                }`}
+                                className={`w-full flex items-center justify-between px-4 py-3 rounded-xl border text-sm font-semibold transition ${form.published
+                                    ? "bg-green-50 border-green-200 text-green-700"
+                                    : "bg-gray-50 border-gray-200 text-gray-500"
+                                    }`}
                             >
                                 <span>{form.published ? "Published (Live on site)" : "Draft (Hidden)"}</span>
                                 <span className={`relative w-11 h-6 rounded-full transition ${form.published ? "bg-green-500" : "bg-gray-300"}`}>
-                                    <span className={`absolute top-0.5 w-5 h-5 rounded-full bg-white shadow transition-all ${
-                                        form.published ? "left-[22px]" : "left-0.5"
-                                    }`} />
+                                    <span className={`absolute top-0.5 w-5 h-5 rounded-full bg-white shadow transition-all ${form.published ? "left-[22px]" : "left-0.5"
+                                        }`} />
                                 </span>
                             </button>
                         </div>

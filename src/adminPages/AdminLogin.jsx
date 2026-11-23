@@ -124,7 +124,7 @@ const AdminLogin = () => {
                                 <button
                                     type="button"
                                     onClick={() => setShowPassword((prev) => !prev)}
-                                    className="absolute inset-y-0 right-0 pr-4 flex items-center text-[#8B0000]/60 hover:text-[#8B0000] transition-colors"
+                                    className="absolute  inset-y-0 right-0 pr-4 flex items-center text-[#8B0000]/60 hover:text-[#8B0000] transition-colors"
                                     aria-label={showPassword ? "Hide password" : "Show password"}
                                     title={showPassword ? "Hide password" : "Show password"}
                                 >
@@ -174,7 +174,7 @@ const AdminLogin = () => {
                             <button
                                 type="submit"
                                 disabled={loading}
-                                className="w-full py-4 rounded-2xl font-bold text-lg tracking-wide bg-gradient-to-r from-[#8B0000] to-[#6b0000] text-[#FFD700] hover:from-[#6b0000] hover:to-[#4a0000] disabled:opacity-60 disabled:cursor-not-allowed transition-all duration-300 shadow-lg shadow-[#8B0000]/25"
+                                className="w-full cursor-pointer py-4 rounded-2xl font-bold text-lg tracking-wide bg-gradient-to-r from-[#8B0000] to-[#6b0000] text-[#FFD700] hover:from-[#6b0000] hover:to-[#4a0000] disabled:opacity-60 disabled:cursor-not-allowed transition-all duration-300 shadow-lg shadow-[#8B0000]/25"
                             >
                                 {loading ? "Signing In…" : "Admin Login"}
                             </button>

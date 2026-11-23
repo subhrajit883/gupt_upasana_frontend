@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 import { donationUrl } from "../config/config";
 import { useAuth } from "../context/AuthContext";
 import { useRazorpay } from "../hooks/useRazorpay";
-
+import fallback from "../assets/fallback.jpeg";
 // ── Helpers ───────────────────────────────────────────────────────────────────
 const formatINR = (n) =>
     new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR", maximumFractionDigits: 0 }).format(n);
@@ -15,10 +15,15 @@ const categoryBadge = {
     static: { label: "General Seva", color: "bg-emerald-100 text-emerald-800 border-emerald-200" },
 };
 
+const FALLBACK_IMG = fallback
+
+
+
 // ── Skeleton loader card ──────────────────────────────────────────────────────
 const SkeletonCard = () => (
     <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden animate-pulse">
         <div className="h-2 bg-gray-200 w-full" />
+        <div className="h-44 bg-gray-100 w-full" />
         <div className="p-6 space-y-4">
             <div className="h-5 bg-gray-200 rounded w-2/3" />
             <div className="h-3 bg-gray-100 rounded w-full" />
@@ -165,14 +170,25 @@ const PackageCard = ({ pkg }) => {
             {/* Top accent bar */}
             <div className="h-1.5 bg-gradient-to-r from-[#8B0000] via-[#FFD700] to-[#8B0000]" />
 
+            {/* Package image */}
+            <div className="relative h-44 bg-[#FDF5E6] overflow-hidden">
+                <img
+                    src={pkg.packageImg?.url || FALLBACK_IMG}
+                    alt={pkg.name}
+                    loading="lazy"
+                    onError={(e) => { e.currentTarget.src = FALLBACK_IMG; }}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <span className={`absolute top-3 left-3 inline-block text-[10px] font-bold tracking-widest uppercase border rounded-full px-2.5 py-0.5 backdrop-blur-sm ${badge.color}`}>
+                    {badge.label}
+                </span>
+            </div>
+
             <div className="p-6 flex flex-col flex-1 gap-4">
 
                 {/* Header */}
                 <div className="flex items-start justify-between gap-3">
                     <div>
-                        <span className={`inline-block text-[10px] font-bold tracking-widest uppercase border rounded-full px-2.5 py-0.5 mb-2 ${badge.color}`}>
-                            {badge.label}
-                        </span>
                         <h3 className="text-[#5a0000] font-black text-xl leading-tight group-hover:text-[#8B0000] transition-colors">
                             {pkg.name}
                         </h3>
@@ -468,7 +484,7 @@ const DonatePage = () => {
                 <div className="max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
                     {[
                         { icon: "🔒", title: "Secure Payments", desc: "All transactions are encrypted via Razorpay." },
-                        { icon: "🧾", title: "Tax Benefits", desc: "Donations may be eligible for tax deductions." },
+                        // { icon: "🧾", title: "Tax Benefits", desc: "Donations may be eligible for tax deductions." },
                         { icon: "🙏", title: "Divine Blessings", desc: "Every offering invites divine grace into your life." },
                     ].map((t) => (
                         <div key={t.title} className="flex flex-col items-center gap-2">

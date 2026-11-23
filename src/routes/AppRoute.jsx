@@ -19,6 +19,11 @@ import AdminLogin from "../adminPages/AdminLogin";
 import AdminDonations from "../adminPages/AdminDonations";
 import AdminDonPackage from "../adminPages/AdminDonPackage";
 import AdminPujaUpdates from "../adminPages/AdminPujaUpdates";
+import MyProfilePage from "../pages/MyProfilePage";
+import ForgotPassword from "../pages/ForgotPassword";
+import ResetPassword from "../pages/ResetPassword";
+import AdminAllUsers from "../adminPages/AdminAllUsers";
+import AboutPage from "../pages/AboutPage";
 
 // Redirect admin based on token
 const AdminRedirect = () => {
@@ -47,6 +52,7 @@ const AppRoute = () => {
                 <Route element={<MainLayout />}>
                     <Route path="/" element={<HomePage />} />
                     <Route path="/contact" element={<ContactPage />} />
+                    <Route path="/about" element={<AboutPage />} />
                     <Route path="/donate" element={<DonatePage />} />
                     <Route
                         path="/donation"
@@ -57,7 +63,10 @@ const AppRoute = () => {
                         element={<DonationSuccessPage />}
                     />
                     <Route path="/my-donations" element={<MyDonationsPage />} />
+                    <Route path="/my-profile" element={<MyProfilePage />} />
                     <Route path="/auth" element={<AuthPage />} />
+                    <Route path="/forgot-password" element={<ForgotPassword />} />
+                    <Route path="/reset-password" element={<ResetPassword />} />
                 </Route>
 
                 {/* Admin Login */}
@@ -90,6 +99,10 @@ const AppRoute = () => {
                     <Route
                         path="/admin/puja-updates"
                         element={<AdminPujaUpdates />}
+                    />
+                    <Route
+                        path="/admin/all-users"
+                        element={<AdminAllUsers />}
                     />
                 </Route>
 

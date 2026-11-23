@@ -23,10 +23,9 @@ const UpdatesHeader = () => {
         fetchUpdates();
     }, []);
 
-    // Always render the bar — show placeholder while loading or on error
     const displayItems =
         updates.length > 0
-            ? [...updates, ...updates, ...updates] // triple so scroll is seamless
+            ? [...updates, ...updates, ...updates]
             : loading
                 ? [{ title: "Loading latest puja updates…" }]
                 : [{ title: "Stay tuned for upcoming puja updates." }];

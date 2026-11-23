@@ -10,7 +10,9 @@ export const authUrl = {
     forgotPassword: `${BASE_URL}/api/auth/forgot-password`,
     resetPassword: `${BASE_URL}/api/auth/reset-password`,
     adminChangePassword: `${BASE_URL}/api/auth/change-password`,
+    allUser: `${BASE_URL}/api/users`
 };
+
 
 export const pujaUpdatesUrl = {
     get: `${BASE_URL}/api/puja-updates`,

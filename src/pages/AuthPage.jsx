@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import toast from "react-hot-toast";
 
@@ -119,7 +119,7 @@ const RegisterForm = ({ onSuccess }) => {
         const { confirmPassword, ...registrationData } = form;
         const result = await registerUser(registrationData);
         if (result.success) {
-            toast.success(`Welcome, ${result.user.name}! 🙏`);
+            toast.success(`Welcome, ${result.user.name}! `);
             onSuccess();
         } else {
             setErr(result.message || "Unable to create your account.");
@@ -196,7 +196,7 @@ const LoginForm = ({ onSuccess }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4 cursor-pointer">
             <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none"><FieldIcon name="email" /></div>
                 <input name="identifier" type="text" value={form.identifier} onChange={handleChange} placeholder="Email or Phone" required autoComplete="username" className={inputClass} />
@@ -204,9 +204,14 @@ const LoginForm = ({ onSuccess }) => {
             <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none"><FieldIcon name="password" /></div>
                 <input name="password" type={showPassword ? "text" : "password"} value={form.password} onChange={handleChange} placeholder="Password" required autoComplete="current-password" className={`${inputClass} pr-12`} />
-                <button type="button" onClick={() => setShowPassword((v) => !v)} aria-label={showPassword ? "Hide password" : "Show password"} aria-pressed={showPassword} className="absolute inset-y-0 right-0 px-4 flex items-center text-[#8B0000]/70 hover:text-[#8B0000]"><EyeIcon visible={showPassword} /></button>
+                <button type="button" onClick={() => setShowPassword((v) => !v)} aria-label={showPassword ? "Hide password" : "Show password"} aria-pressed={showPassword} className="absolute cursor-pointer inset-y-0 right-0 px-4 flex items-center text-[#8B0000]/70 hover:text-[#8B0000]"><EyeIcon visible={showPassword} /></button>
             </div>
             {err && <p role="alert" className="text-red-600 text-sm bg-red-50 border border-red-200 rounded-xl px-4 py-2.5">{err}</p>}
+            <div className="flex justify-end">
+                <Link to="/forgot-password" className="text-xs text-[#8B0000] font-semibold hover:underline">
+                    Forgot password?
+                </Link>
+            </div>
             <button type="submit" disabled={loading} className="w-full py-4 rounded-2xl font-bold text-lg tracking-wide bg-gradient-to-r from-[#8B0000] to-[#6b0000] text-[#FFD700] hover:from-[#6b0000] hover:to-[#4a0000] disabled:opacity-60 disabled:cursor-not-allowed transition-all duration-300 shadow-lg shadow-[#8B0000]/25">
                 {loading ? "Signing In…" : "Login"}
             </button>
@@ -255,11 +260,10 @@ const AuthPage = () => {
                                 key={t.key}
                                 type="button"
                                 onClick={() => setTab(t.key)}
-                                className={`flex-1 py-5 text-xl font-bold tracking-wide transition-all ${
-                                    tab === t.key
-                                        ? "text-[#8B0000] border-b-4 border-[#8B0000] bg-[#8B0000]/5"
-                                        : "text-[#9c8a6a] hover:text-[#6b5a3a]"
-                                }`}
+                                className={`flex-1 py-5 text-xl cursor-pointer font-bold tracking-wide transition-all ${tab === t.key
+                                    ? "text-[#8B0000] border-b-4 border-[#8B0000] bg-[#8B0000]/5"
+                                    : "text-[#9c8a6a] hover:text-[#6b5a3a]"
+                                    }`}
                             >
                                 {t.label}
                             </button>

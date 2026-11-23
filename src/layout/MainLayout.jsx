@@ -3,6 +3,7 @@ import UpdatesHeader from "../component/UpdatesHeader";
 import Navbar from "../component/Navbar";
 import Footer from "../component/Footer";
 import PujaUpdatesNotifier from "../component/PujaUpdatesNotifier";
+import ChatBot from "../component/ChatBot";
 
 const MainLayout = () => {
     return (
@@ -20,6 +21,9 @@ const MainLayout = () => {
             <main className="flex-grow">
                 <Outlet />
             </main>
+
+            {/* Divine Assistant ChatBot */}
+            <ChatBot />
 
             {/* Footer */}
             <Footer />

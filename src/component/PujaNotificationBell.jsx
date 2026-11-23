@@ -159,7 +159,7 @@ const PujaNotificationBell = () => {
     setTesting(true);
     try {
       // Direct local test notification
-      await triggerImmediateNotification("🪔 Sacred Puja Alert: Test", {
+      await triggerImmediateNotification("🪔 Sacred Puja Alert:", {
         body: "Blessings from Gupt Upasana! Push notifications are active and working on your device.",
         icon: "/logo.png"
       });
@@ -173,7 +173,7 @@ const PujaNotificationBell = () => {
             title: "🪔 Gupt Upasana Temple",
             message: "Sacred alert test: Push notification sent from server successfully!"
           })
-          .catch(() => {});
+          .catch(() => { });
       }
 
       toast.success("🔔 Test notification sent to your device!");
@@ -234,8 +234,8 @@ const PujaNotificationBell = () => {
                 {permission === "denied"
                   ? "Blocked in browser settings"
                   : isSubscribed
-                  ? "Active • Receiving alerts"
-                  : "Enable to receive alerts"}
+                    ? "Active • Receiving alerts"
+                    : "Enable to receive alerts"}
               </p>
             </div>
 
@@ -255,17 +255,15 @@ const PujaNotificationBell = () => {
               <button
                 onClick={handleToggleSubscription}
                 disabled={loading || permission === "denied"}
-                className={`relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${
-                  isSubscribed ? "bg-[#8B0000]" : "bg-gray-300"
-                } ${permission === "denied" ? "opacity-50 cursor-not-allowed" : ""}`}
+                className={`relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${isSubscribed ? "bg-[#8B0000]" : "bg-gray-300"
+                  } ${permission === "denied" ? "opacity-50 cursor-not-allowed" : ""}`}
                 role="switch"
                 aria-checked={isSubscribed}
               >
                 <span
                   aria-hidden="true"
-                  className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow-md ring-0 transition duration-200 ease-in-out ${
-                    isSubscribed ? "translate-x-5" : "translate-x-0"
-                  }`}
+                  className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow-md ring-0 transition duration-200 ease-in-out ${isSubscribed ? "translate-x-5" : "translate-x-0"
+                    }`}
                 />
               </button>
             </div>
