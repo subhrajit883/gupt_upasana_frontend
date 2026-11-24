@@ -1,11 +1,22 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 // ── Import local assets ───────────────────────────────────────────────────────
+import carousel1 from "../assets/carousel/gupt1.jpg";
+import carousel2 from "../assets/carousel/gupt2.jpg";
+import carousel3 from "../assets/carousel/gupt3.jpg";
 import heroBg from "../assets/homepage.jpeg";
 import imgMahakali from "../assets/maakali.jpeg";
 import imgBhairav from "../assets/mahadev bhairav.jpeg";
 import imgBaglamukhi from "../assets/maa baglamukhi.jpeg";
+import templeImg from "../assets/templephoto.jpeg";
 
+const carouselImages = [
+    { src: carousel1, alt: "Gupt Upasana Temple Darshan 1" },
+    { src: carousel2, alt: "Gupt Upasana Temple Darshan 2" },
+    { src: carousel3, alt: "Gupt Upasana Temple Darshan 3" },
+];
 // ── Featured Pujas data ───────────────────────────────────────────────────────
 const featuredPujas = [
     {
@@ -43,175 +54,295 @@ const reasons = [
 const SectionHeading = ({ children }) => (
     <div className="text-center mb-12">
         <div className="flex items-center justify-center gap-4 mb-3">
-            <div className="h-px w-20 bg-gradient-to-r from-transparent to-[#8B0000]/50" />
-            <span className="text-[#8B0000] text-2xl">🪷</span>
-            <div className="h-px w-20 bg-gradient-to-l from-transparent to-[#8B0000]/50" />
+
         </div>
         <h2 className="text-3xl md:text-4xl font-bold text-[#8B0000] tracking-tight">{children}</h2>
         <div className="flex items-center justify-center gap-4 mt-3">
             <div className="h-px w-10 bg-[#8B0000]/30" />
-            <span className="text-[#8B0000]/40 text-xs tracking-[0.4em] uppercase">✦ ✦ ✦</span>
+            <span className="text-[#8B0000] text-2xl">🪷</span>
             <div className="h-px w-10 bg-[#8B0000]/30" />
         </div>
     </div>
 );
 
-// ─────────────────────────────────────────────────────────────────────────────
 const HomePage = () => {
+    const [currentSlide, setCurrentSlide] = useState(0);
+
+    // Infinite auto-scroll for carousel
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setCurrentSlide((prev) => (prev + 1) % carouselImages.length);
+        }, 5000);
+        return () => clearInterval(timer);
+    }, []);
+
+    const prevSlide = () => {
+        setCurrentSlide((prev) => (prev - 1 + carouselImages.length) % carouselImages.length);
+    };
+
+    const nextSlide = () => {
+        setCurrentSlide((prev) => (prev + 1) % carouselImages.length);
+    };
+
     return (
-        <div className="bg-[#d8c88d]">
+        <div className="bg-[#efe6d2]">
 
-            {/* ═══════════════════════════════════════════════════════════════
-                HERO SECTION
-            ═══════════════════════════════════════════════════════════════ */}
-            <section className="relative min-h-[90vh] flex items-center overflow-hidden">
+            {/* hero section */}
+            <section className="relative min-h-[85vh] sm:min-h-[90vh] flex items-center justify-center overflow-hidden bg-[#0f0500]">
 
-                {/* Background image */}
-                <img
-                    src={heroBg}
-                    alt="Gupt Upasana Hero"
-                    className="absolute inset-0 w-full h-full object-cover "
-                    loading="eager"
+                {/* Background Carousel Images */}
+                {carouselImages.map((item, index) => (
+                    <img
+                        key={index}
+                        src={item.src}
+                        alt={item.alt}
+                        className={`absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-in-out ${index === currentSlide
+                            ? "opacity-100 scale-100"
+                            : "opacity-0 scale-105 pointer-events-none"
+                            }`}
+                        loading={index === 0 ? "eager" : "lazy"}
+                    />
+                ))}
 
-                />
+                {/* Dark Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0f0500] via-[#0f0500]/55 to-[#0f0500]/70 pointer-events-none" />
 
-                {/* Multi-layer overlay for depth */}
-                <div className="absolute inset-0 bg-gradient-to-r from-[#0f0500]/62 via-[#1a0800]/55 to-[#0f0500]/10" />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0f0500]/60 via-transparent to-[#0f0500]/20" />
+                <div className="absolute inset-0 bg-gradient-to-r from-[#0f0500]/75 via-transparent to-[#0f0500]/75 pointer-events-none" />
 
-                {/* Decorative radial glow */}
-                <div className="absolute left-1/4 top-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#e7c652]/5 rounded-full blur-3xl pointer-events-none" />
+                {/* Golden Glow */}
+                <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-[#e7c652]/10 rounded-full blur-3xl pointer-events-none" />
 
-                {/* Content */}
-                <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 py-24 w-full">
-                    <div className="max-w-2xl">
+                {/* Subtle Om Watermark */}
+                <div className="absolute inset-0 flex items-center justify-center opacity-5 select-none pointer-events-none">
+                    <span className="text-[24rem] font-bold text-[#e7c652]">
+                        ॐ
+                    </span>
+                </div>
 
-                        {/* Badge */}
-                        {/* <div className="inline-flex items-center gap-2 bg-[#e7c652]/10 backdrop-blur-sm border border-[#e7c652]/25 rounded-full px-5 py-2 mb-7">
-                            <span className="w-2 h-2 rounded-full bg-[#e7c652] animate-pulse" />
-                            <span className="text-[#e7c652] text-xs tracking-[0.3em] uppercase font-semibold">
-                                Sacred Ancient Wisdom
+                {/* Foreground Content */}
+                <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 py-20 flex flex-col items-start justify-center text-left">
+
+                    {/* Main Heading */}
+                    <h1 className="text-3xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-[#f7f1e3] tracking-wide font-serif leading-[1.2] drop-shadow-[0_4px_30px_rgba(0,0,0,0.95)] max-w-4xl">
+                        Gupt Upasana — The Ancient Science of Tantra for Kaliyug
+                    </h1>
+
+                    {/* CTA Buttons */}
+                    <div className="flex flex-wrap items-center justify-start gap-5 mt-10">
+
+                        {/* Plan Your Visit */}
+                        <Link
+                            to="/contact"
+                            className="group relative inline-flex items-center justify-center gap-3 px-8 sm:px-10 py-4 rounded-full overflow-hidden border border-[#e7c652]/70 bg-[#4a0a0d]/70 text-[#f7f1e3] font-bold text-sm sm:text-base tracking-wide shadow-[0_8px_30px_rgba(0,0,0,0.35)] backdrop-blur-md transition-all duration-500 hover:border-[#e7c652] hover:shadow-[0_0_25px_rgba(231,198,82,0.3)] hover:-translate-y-1"
+                        >
+                            <span className="absolute inset-0 bg-gradient-to-r from-[#e7c652]/0 via-[#e7c652]/15 to-[#e7c652]/0 -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+
+                            {/* <span className="relative text-xl">🛕</span> */}
+                            <span className="relative">Plan Your Visit</span>
+                            <span className="relative text-[#e7c652] transition-transform duration-300 group-hover:translate-x-1">
+                                →
                             </span>
-                        </div> */}
+                        </Link>
 
-                        {/* Title */}
-                        <h1 className="text-4xl sm:text-3xl lg:text-4xl font-black text-[#e7c652] leading-[1.05] mb-4 drop-shadow-2xl">
-                            Gupt<br />Upasana
-                        </h1>
+                        {/* Donate */}
+                        <Link
+                            to="/donate"
+                            className="group relative inline-flex items-center justify-center gap-3 px-9 sm:px-11 py-4 rounded-full overflow-hidden bg-gradient-to-r from-[#e7c652] via-[#f7e4a0] to-[#e7c652] text-[#4a0a0d] font-black text-sm sm:text-base tracking-wide border border-[#f7e4a0] shadow-[0_8px_30px_rgba(231,198,82,0.25)] transition-all duration-500 hover:shadow-[0_0_35px_rgba(231,198,82,0.5)] hover:-translate-y-1 hover:scale-105"
+                        >
+                            <span className="absolute inset-0 bg-white/30 -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
 
-                        {/* Sub-title */}
-                        <p className="text-xl md:text-2xl text-[#e7c652]/80 italic font-light mb-5 leading-snug">
-                            The Ancient Science of Tantra for Kaliyug
-                        </p>
-
-                        {/* Gold divider */}
-                        {/* <div className="flex items-center gap-3 mb-6">
-                            <div className="h-[2px] w-16 bg-gradient-to-r from-[#e7c652] to-transparent rounded-full" />
-                            <span className="text-[#e7c652]/50">🪷</span>
-                            <div className="h-[2px] w-8 bg-[#e7c652]/20 rounded-full" />
-                        </div> */}
-
-                        {/* Description */}
-                        <p className="text-[#e7c652]/75 text-base md:text-lg leading-relaxed mb-10 max-w-xl">
-                            Immerse yourself in the sacred spiritual discipline of{" "}
-                            <span className="text-[#e7c652] font-semibold">
-                                Mantra, Yantra, Tantra, Dhyana, Japa and Upasana.
+                            {/* <span className="relative text-xl">🪔</span> */}
+                            <span className="relative">Donate Now</span>
+                            <span className="relative transition-transform duration-300 group-hover:translate-x-1">
+                                →
                             </span>
-                        </p>
+                        </Link>
 
-                        {/* CTAs */}
-                        <div className="flex flex-wrap gap-4">
-                            <Link
-                                to="/donate"
-                                className="group flex items-center gap-2 bg-[#e7c652] text-[#5a0000] font-black px-8 py-3.5 rounded-full hover:bg-yellow-300 transition-all duration-300 shadow-xl shadow-[#e7c652]/20 text-sm tracking-wide"
-                            >
-
-                                <span>Donate</span>
-                                {/* <span className="group-hover:translate-x-1 transition-transform duration-200">→</span> */}
-                            </Link>
-                            <Link
-                                to="/about"
-                                className="flex items-center gap-2 border-2 border-[#e7c652]/40 text-[#e7c652] font-semibold px-8 py-3.5 rounded-full hover:bg-[#e7c652]/10 hover:border-[#e7c652]/70 transition-all duration-300 backdrop-blur-sm text-sm"
-                            >
-                                Know More
-                            </Link>
-                        </div>
-
-                        {/* Stats strip */}
-                        <div className="mt-14 flex flex-wrap gap-6">
-                            {[
-                                { label: "Years of Legacy", value: "25+" },
-                                { label: "Sacred Pujas", value: "50+" },
-                                { label: "Devoted Sadhaks", value: "10K+" },
-                            ].map((s) => (
-                                <div key={s.label} className="text-center pr-6 border-r border-[#e7c652]/20 last:border-0">
-                                    <p className="text-[#e7c652] text-2xl font-black">{s.value}</p>
-                                    <p className="text-[#e7c652]/50 text-xs tracking-wider uppercase mt-0.5">{s.label}</p>
-                                </div>
-                            ))}
-                        </div>
                     </div>
                 </div>
 
-                {/* Bottom wave */}
-                <div className="absolute bottom-0 left-0 right-0 overflow-hidden leading-none">
-                    <svg viewBox="0 0 1440 70" preserveAspectRatio="none" className="w-full h-16 md:h-20">
-                        <path
-                            d="M0,40 C240,70 480,10 720,40 C960,70 1200,10 1440,40 L1440,70 L0,70 Z"
-                            fill="#e7c652"
+                {/* Previous Slide Button */}
+                <button
+                    onClick={prevSlide}
+                    aria-label="Previous temple image"
+                    className="absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 z-20 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-black/40 hover:bg-black/70 border border-[#e7c652]/50 hover:border-[#e7c652] text-[#e7c652] flex items-center justify-center transition-all duration-200 backdrop-blur-md shadow-lg hover:scale-110 active:scale-95"
+                >
+                    <ChevronLeft size={24} />
+                </button>
+
+                {/* Next Slide Button */}
+                <button
+                    onClick={nextSlide}
+                    aria-label="Next temple image"
+                    className="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 z-20 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-black/40 hover:bg-black/70 border border-[#e7c652]/50 hover:border-[#e7c652] text-[#e7c652] flex items-center justify-center transition-all duration-200 backdrop-blur-md shadow-lg hover:scale-110 active:scale-95"
+                >
+                    <ChevronRight size={24} />
+                </button>
+
+                {/* Carousel Dot Indicators */}
+                <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2.5">
+                    {carouselImages.map((_, idx) => (
+                        <button
+                            key={idx}
+                            onClick={() => setCurrentSlide(idx)}
+                            aria-label={`Go to slide ${idx + 1}`}
+                            className={`transition-all duration-300 rounded-full ${idx === currentSlide
+                                ? "w-8 h-2.5 bg-[#e7c652] shadow-md shadow-[#e7c652]/50"
+                                : "w-2.5 h-2.5 bg-white/40 hover:bg-white/75"
+                                }`}
                         />
-                    </svg>
-                </div>
-            </section>
-
-            {/* ═══════════════════════════════════════════════════════════════
-                FEATURED PUJAS
-            ═══════════════════════════════════════════════════════════════ */}
-            <section className="py-20 px-6 max-w-7xl mx-auto">
-                <SectionHeading>Our Featured Pujas</SectionHeading>
-
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    {featuredPujas.map((puja) => (
-                        <div
-                            key={puja.name}
-                            className="group bg-white border border-[#8B0000]/10 rounded-2xl overflow-hidden shadow-md hover:shadow-2xl hover:shadow-[#8B0000]/15 transition-all duration-500 hover:-translate-y-2"
-                        >
-                            {/* Image */}
-                            <div className="relative h-52 overflow-hidden">
-                                <img
-                                    src={puja.img}
-                                    alt={puja.name}
-                                    className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-110"
-                                />
-                                {/* Gradient overlay on image */}
-                                <div className={`absolute inset-0 bg-gradient-to-t ${puja.color} opacity-50 group-hover:opacity-30 transition-opacity duration-500`} />
-                                {/* Gold shimmer line at bottom */}
-                                <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#e7c652] to-transparent opacity-80" />
-                            </div>
-
-                            {/* Content */}
-                            <div className="p-6">
-                                <h3 className="text-[#8B0000] font-bold text-xl mb-2 group-hover:text-[#6b0000] transition-colors">
-                                    {puja.name}
-                                </h3>
-                                <p className="text-gray-500 text-sm leading-relaxed mb-5">{puja.desc}</p>
-                                <Link
-                                    to={puja.path}
-                                    className="inline-flex items-center gap-1.5 text-[#8B0000] font-semibold text-sm border border-[#8B0000]/30 rounded-full px-4 py-1.5 hover:bg-[#8B0000] hover:text-[#e7c652] hover:border-[#8B0000] transition-all duration-300"
-                                >
-                                    Know More →
-                                </Link>
-                            </div>
-                        </div>
                     ))}
                 </div>
+
             </section>
 
-            {/* ═══════════════════════════════════════════════════════════════
-                INFO GRID: Why | Visitors | Address
-            ═══════════════════════════════════════════════════════════════ */}
-            <section className="py-6 pb-20 px-6 max-w-7xl mx-auto">
+            {/* about section */}
+            <section className="py-20 px-6 max-w-7xl mx-auto">
+                <SectionHeading>A Rare Convergence of Divine Powers in One Temple</SectionHeading>
+
+                <div className="flex flex-col gap-10">
+
+                    {/* Puja 1 */}
+                    <div className="flex flex-col md:flex-row items-center gap-6 md:gap-10 ">
+                        <div className="w-full md:w-2/5 h-96 md:h-[600px] overflow-hidden shrink-0 mx-20 rounded-2xl">
+                            <img
+                                src={templeImg}
+                                alt="Puja"
+                                className="w-full h-full object-cover"
+                            />
+                        </div>
+
+                        <div className="flex-1">
+                            <h3 className="text-[#8B0000] font-bold text-2xl mb-4">
+                                Gupt Upasana Mahakal–Mahakali Mandir
+                            </h3>
+                            <p className="text-gray-800 leading-8 mb-6">
+                                India is home to countless Shakti Peethas, Shiva temples, Hanuman shrines and centres dedicated to the Mahavidyas. Yet the presence of Dashamukhi Mahakali, Ekadashamukhi Hanuman, a ritual-consecrated Ashtadhatu Maa Baglamukhi, the Ashta Bhairavas and the fierce form of Maa Pratyangira within one sacred complex represents an exceptionally uncommon spiritual configuration.
+
+                                Located in Salt Lake, Kolkata, Gupt Upasana Mahakal–Mahakali Mandir, established in 1998, is not merely a place where several deities have been installed. It is envisioned as an integrated field of Shakta, Shaiva, Bhairava and Hanuman worship.
+
+                                The temple brings together diverse streams of sacred worship within a single spiritual environment, reflecting the interconnected nature of Shakti, Shiva, Bhairava and Hanuman upasana.
+                            </p>
+                            {/* <Link
+                                to="/puja"
+                                className="inline-flex items-center gap-2 text-[#8B0000] font-semibold text-sm px-5 py-2.5 border border-[#8B0000] rounded-full transition-all duration-300 hover:bg-[#8B0000] hover:text-white hover:shadow-md"
+                            >
+                                Know More →
+                            </Link> */}
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            {/* donate section */}
+
+            {/* ═══════════════════════════════════════════════════════
+    DONATION INVITATION SECTION
+═══════════════════════════════════════════════════════ */}
+            <section className="px-6 py-16 md:py-24 bg-[#f7f1e3]">
+
+                <div className="max-w-7xl mx-auto">
+
+                    <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#4a0a0d] via-[#650b10] to-[#8B0000] shadow-2xl">
+
+                        {/* Decorative Background */}
+                        {/* <div className="absolute inset-0 opacity-[0.05] pointer-events-none flex items-center justify-center">
+                            <span className="text-[22rem] font-black text-[#e7c652]">ॐ</span>
+                        </div> */}
+
+                        {/* <div className="absolute -top-20 -right-20 w-72 h-72 rounded-full border border-[#e7c652]/10" />
+                        <div className="absolute -bottom-24 -left-20 w-80 h-80 rounded-full border border-[#e7c652]/10" /> */}
+
+                        <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 items-center gap-10 p-7 sm:p-10 lg:p-14">
+
+                            {/* Left Image */}
+                            <div className="relative group">
+                                <div className="absolute -inset-2 border border-[#e7c652]/40 rounded-2xl transition-transform duration-500 group-hover:rotate-1" />
+
+                                <img
+                                    src={templeImg}
+                                    alt="Gupt Upasana Temple"
+                                    className="relative w-full h-72 sm:h-96 object-cover object-top rounded-xl shadow-2xl transition-transform duration-700 group-hover:scale-[1.02]"
+                                />
+
+                                {/* Image Label */}
+                                {/* <div className="absolute bottom-4 left-4 right-4 bg-[#4a0a0d]/80 backdrop-blur-md border border-[#e7c652]/30 rounded-xl px-5 py-3">
+                                    <p className="text-[#e7c652] text-xs tracking-[3px] font-semibold uppercase">
+                                        Gupt Upasana
+                                    </p>
+                                    <p className="text-[#f7f1e3] font-serif text-lg mt-1">
+                                        A Sacred Offering of Devotion
+                                    </p>
+                                </div> */}
+                            </div>
+
+                            {/* Right Content */}
+                            <div className="text-center md:text-left">
+
+                                <span className="inline-block text-[#e7c652] text-xs sm:text-sm font-bold tracking-[3px] uppercase border border-[#e7c652]/40 rounded-full px-5 py-2 mb-6">
+                                    Support Gupt Upasana
+                                </span>
+
+                                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black font-serif text-[#f7f1e3] leading-tight mb-6">
+                                    Your Seva, <br />
+                                    <span className="text-[#e7c652]">
+                                        A Sacred Contribution
+                                    </span>
+                                </h2>
+
+                                <p className="text-[#f7f1e3]/80 text-sm sm:text-base leading-8 mb-5">
+                                    Every offering is an expression of faith and devotion.
+                                    Your contribution helps support the daily activities,
+                                    spiritual practices and maintenance of Gupt Upasana Temple.
+                                </p>
+
+                                <p className="text-[#f7f1e3]/70 text-sm leading-7 mb-8">
+                                    Come forward and be a part of our spiritual journey.
+                                    Offer your seva with श्रद्धा and devotion.
+                                </p>
+
+                                {/* Donation Button */}
+                                <Link
+                                    to="/donate"
+                                    className="group relative inline-flex items-center justify-center gap-3 px-9 sm:px-11 py-4 rounded-full overflow-hidden bg-gradient-to-r from-[#e7c652] via-[#f7e4a0] to-[#e7c652] text-[#4a0a0d] font-black text-sm sm:text-base tracking-wide border border-[#f7e4a0] shadow-[0_8px_30px_rgba(231,198,82,0.25)] transition-all duration-500 hover:shadow-[0_0_35px_rgba(231,198,82,0.45)] hover:-translate-y-1 hover:scale-105"
+                                >
+                                    <span className="absolute inset-0 bg-white/30 -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+
+                                    <span className="relative">Offer Your Seva</span>
+                                    <span className="relative transition-transform duration-300 group-hover:translate-x-1">
+                                        →
+                                    </span>
+                                </Link>
+
+                                <p className="text-[#f7f1e3]/50 text-xs mt-5 tracking-wide">
+                                    Every contribution is voluntary and deeply appreciated.
+                                </p>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section className="py-6 pb-20 px-6 max-w-7xl mx-auto mt-3">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+                    {/* Visitors Guideline */}
+                    <div className="bg-white border border-[#8B0000]/10 rounded-2xl p-7 shadow-sm hover:shadow-md transition-shadow">
+                        <h3 className="font-bold text-[#8B0000] text-lg mb-4 flex items-center gap-2">
+                            <span className="w-8 h-8 rounded-full bg-[#8B0000]/10 flex items-center justify-center">🛕</span>
+                            Visitors Guideline
+                        </h3>
+                        <div className="flex gap-4 items-start">
+                            <span className="text-5xl opacity-15 select-none flex-shrink-0">🛕</span>
+                            <p className="text-gray-600 text-sm leading-relaxed">
+                                Public darshan of Mahakal and Mahakali is{" "}
+                                <strong className="text-[#8B0000]">available in the open section</strong>.
+                                The inner mandir is restricted for general visitors.
+                            </p>
+                        </div>
+                    </div>
 
                     {/* Why Gupt Upasana */}
                     <div className="bg-gradient-to-br from-[#8B0000] to-[#5a0000] rounded-2xl p-7 text-white shadow-lg">
@@ -229,22 +360,6 @@ const HomePage = () => {
                                 </li>
                             ))}
                         </ul>
-                    </div>
-
-                    {/* Visitors Guideline */}
-                    <div className="bg-white border border-[#8B0000]/10 rounded-2xl p-7 shadow-sm hover:shadow-md transition-shadow">
-                        <h3 className="font-bold text-[#8B0000] text-lg mb-4 flex items-center gap-2">
-                            <span className="w-8 h-8 rounded-full bg-[#8B0000]/10 flex items-center justify-center">🛕</span>
-                            Visitors Guideline
-                        </h3>
-                        <div className="flex gap-4 items-start">
-                            <span className="text-5xl opacity-15 select-none flex-shrink-0">🛕</span>
-                            <p className="text-gray-600 text-sm leading-relaxed">
-                                Public darshan of Mahakal and Mahakali is{" "}
-                                <strong className="text-[#8B0000]">available in the open section</strong>.
-                                The inner mandir is restricted for general visitors.
-                            </p>
-                        </div>
                     </div>
 
                     {/* Address */}
@@ -279,44 +394,7 @@ const HomePage = () => {
                 </div>
             </section>
 
-            {/* ═══════════════════════════════════════════════════════════════
-                CALL TO ACTION BANNER
-            ═══════════════════════════════════════════════════════════════ */}
-            <section className="py-6 pb-20 px-6">
-                <div className="max-w-4xl mx-auto relative bg-gradient-to-br from-[#8B0000] via-[#6b0000] to-[#4a0000] rounded-3xl p-12 text-center shadow-2xl overflow-hidden">
-                    {/* Background Om watermark */}
-                    <div className="absolute inset-0 flex items-center justify-center select-none pointer-events-none opacity-[0.04]">
-                        <span className="text-[22rem] font-black text-[#e7c652] leading-none">ॐ</span>
-                    </div>
-                    {/* Decorative rings */}
-                    <div className="absolute top-4 right-4 w-24 h-24 rounded-full border border-[#e7c652]/10" />
-                    <div className="absolute bottom-4 left-4 w-16 h-16 rounded-full border border-[#e7c652]/10" />
 
-                    <div className="relative z-10">
-                        <span className="text-5xl mb-5 block">🪔</span>
-                        <h2 className="text-3xl md:text-4xl font-black text-[#e7c652] mb-4 leading-tight">
-                            Begin Your Spiritual Journey
-                        </h2>
-                        <p className="text-white/65 text-base md:text-lg leading-relaxed mb-9 max-w-xl mx-auto">
-                            Take the first step towards divine connection. Explore our sacred pujas and sadhnas guided by experienced practitioners.
-                        </p>
-                        <div className="flex flex-wrap justify-center gap-4">
-                            <Link
-                                to="/pujas"
-                                className="bg-[#e7c652] text-[#5a0000] font-black px-9 py-3.5 rounded-full hover:bg-yellow-300 transition-all duration-300 shadow-lg shadow-[#e7c652]/20 text-sm tracking-wide"
-                            >
-                                🕉️ Explore Pujas
-                            </Link>
-                            <Link
-                                to="/contact"
-                                className="border-2 border-[#e7c652]/40 text-[#e7c652] font-semibold px-9 py-3.5 rounded-full hover:bg-[#e7c652]/10 hover:border-[#e7c652]/60 transition-all duration-300 text-sm"
-                            >
-                                Contact Us
-                            </Link>
-                        </div>
-                    </div>
-                </div>
-            </section>
         </div>
     );
 };

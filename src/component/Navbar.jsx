@@ -22,7 +22,7 @@ const navLinks = [
     //     ],
     // },
     // { label: "Media", path: "/media" },
-    { label: "Contact", path: "/contact" },
+    // { label: "Contact", path: "/contact" },
 ];
 
 const Navbar = () => {
@@ -93,9 +93,10 @@ const Navbar = () => {
                                 <Link
                                     key={link.label}
                                     to={link.path}
-                                    className={`px-3 py-2 rounded-md text-sm font-medium transition ${location.pathname === link.path
-                                        ? "bg-[#e7c652] text-[#1a0a00] font-bold"
-                                        : "text-[#e7c652]/80 hover:text-[#e7c652] hover:bg-[#e7c652]/10"
+                                    className={`relative px-4 py-2 text-sm font-semibold transition-all duration-300 rounded-md
+    ${location.pathname === link.path
+                                            ? "text-[#e7c652] after:absolute after:left-4 after:right-4 after:bottom-0 after:h-[2px] after:bg-[#e7c652]"
+                                            : "text-[#e7c652]/75 hover:text-[#e7c652] hover:bg-[#e7c652]/10"
                                         }`}
                                 >
                                     {link.label}
@@ -107,7 +108,7 @@ const Navbar = () => {
                             to="/donate"
                             className="ml-4 flex items-center gap-2 bg-[#e7c652] text-[#8B0000] font-bold px-5 py-2 rounded-full hover:bg-yellow-400 transition shadow-md shadow-[#e7c652]/20 text-sm"
                         >
-                           Donate
+                            Donate
                         </Link>
 
                         {/* Puja Notification Bell */}
@@ -208,9 +209,10 @@ const Navbar = () => {
                             key={link.label}
                             to={link.path}
                             onClick={() => setMenuOpen(false)}
-                            className={`block px-3 py-2.5 rounded-md text-sm font-medium transition ${location.pathname === link.path
-                                ? "bg-[#e7c652] text-[#1a0a00] font-bold"
-                                : "text-[#e7c652]/80 hover:text-[#e7c652] hover:bg-[#e7c652]/10"
+                            className={`block px-3 py-2.5 text-sm font-medium rounded-md transition-all duration-300
+    ${location.pathname === link.path
+                                    ? "text-[#e7c652] border-l-[3px] border-[#e7c652] bg-[#e7c652]/10"
+                                    : "text-[#e7c652]/75 hover:text-[#e7c652] hover:bg-[#e7c652]/10"
                                 }`}
                         >
                             {link.label}

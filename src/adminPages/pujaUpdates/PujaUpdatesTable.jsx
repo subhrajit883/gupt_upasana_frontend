@@ -126,9 +126,9 @@ const PujaUpdatesTable = ({
                             <tr className="bg-[#fcfaf5] text-xs uppercase tracking-wider text-gray-500 border-b border-[#f0ece4]">
                                 <th className="px-5 py-4 font-semibold">Puja / Title</th>
                                 <th className="px-5 py-4 font-semibold">Message Preview</th>
-                                <th className="px-5 py-4 font-semibold">Schedule Date</th>
+                                {/* <th className="px-5 py-4 font-semibold">Schedule Date</th> */}
                                 <th className="px-5 py-4 font-semibold">Status</th>
-                                <th className="px-5 py-4 font-semibold">Push Alert</th>
+                                {/* <th className="px-5 py-4 font-semibold">Push Alert</th> */}
                                 <th className="px-5 py-4 font-semibold">Created</th>
                                 <th className="px-5 py-4 font-semibold text-center">Actions</th>
                             </tr>
@@ -145,19 +145,18 @@ const PujaUpdatesTable = ({
                                     <td className="px-5 py-4">
                                         <p className="text-xs text-gray-500 max-w-sm line-clamp-2">{item.message}</p>
                                     </td>
-                                    <td className="px-5 py-4">
+                                    {/* <td className="px-5 py-4">
                                         <p className="text-xs font-medium text-gray-700">{formatDate(item.scheduledAt)}</p>
-                                    </td>
+                                    </td> */}
                                     <td className="px-5 py-4">
-                                        <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold ${
-                                            item.published ? "bg-green-50 text-green-700 border border-green-200" : "bg-gray-100 text-gray-600"
-                                        }`}>
+                                        <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold ${item.published ? "bg-green-50 text-green-700 border border-green-200" : "bg-gray-100 text-gray-600"
+                                            }`}>
                                             {item.published ? "Published" : "Draft"}
                                         </span>
                                     </td>
-                                    <td className="px-5 py-4">
+                                    {/* <td className="px-5 py-4">
                                         <PushStatusBadge status={item.pushStatus} />
-                                    </td>
+                                    </td> */}
                                     <td className="px-5 py-4">
                                         <p className="text-xs text-gray-500">{new Date(item.createdAt).toLocaleDateString("en-IN")}</p>
                                     </td>

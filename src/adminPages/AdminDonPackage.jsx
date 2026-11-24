@@ -7,6 +7,7 @@ import {
 } from "lucide-react";
 import { donationUrl } from "../config/config";
 import { handleAdminAuthError } from "./adminAuthGuard";
+import fallbackImg from "../assets/fallback.jpeg";
 
 const TOKEN_KEY = "admin_gupt";
 const MAX_IMG_BYTES = 200 * 1024;
@@ -599,17 +600,12 @@ const AdminDonPackage = () => {
                             <div className="h-1.5 bg-gradient-to-r from-[#4a0a0d] via-[#e7c66b] to-[#4a0a0d]" />
 
                             <div className="relative h-40 bg-[#fcfaf5] overflow-hidden">
-                                {pkg.packageImg?.url ? (
-                                    <img
-                                        src={pkg.packageImg.url}
-                                        alt={pkg.name}
-                                        className="w-full h-full object-cover"
-                                    />
-                                ) : (
-                                    <div className="w-full h-full flex items-center justify-center text-[#e0d9c8]">
-                                        <ImagePlus size={40} />
-                                    </div>
-                                )}
+                                <img
+                                    src={pkg.packageImg?.url || fallbackImg}
+                                    alt={pkg.name}
+                                    onError={(e) => { e.currentTarget.src = fallbackImg; }}
+                                    className="w-full h-full object-cover"
+                                />
                             </div>
 
                             <div className="p-5 flex-1 flex flex-col">

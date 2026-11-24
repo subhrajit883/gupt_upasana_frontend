@@ -3,7 +3,10 @@ import { Outlet } from "react-router-dom";
 import AdminSidebar from "../component/AdminSidebar";
 
 const AdminLayout = () => {
-    const [sidebarOpen, setSidebarOpen] = useState(false);
+    // Open by default on desktop, closed on mobile
+    const [sidebarOpen, setSidebarOpen] = useState(
+        typeof window !== "undefined" ? window.innerWidth >= 768 : true
+    );
 
     return (
         <div className="min-h-screen bg-[#faf8f3] print:bg-white print:min-h-0">

@@ -103,7 +103,12 @@ const AdminSidebar = ({ open, onClose, onOpen }) => {
                             <NavLink
                                 key={to}
                                 to={to}
-                                onClick={onClose}
+                                onClick={() => {
+                                    // Only close overlay if on mobile view
+                                    if (window.innerWidth < 768 && typeof onClose === "function") {
+                                        onClose();
+                                    }
+                                }}
                                 className={linkClass}
                             >
                                 <Icon size={19} />

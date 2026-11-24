@@ -196,8 +196,10 @@ const PujaNotificationBell = () => {
 
         {/* Unseen Badge */}
         {unseenCount > 0 && (
-          <span className="absolute -top-0.5 -right-0.5 bg-red-600 text-white font-black text-[10px] w-5 h-5 rounded-full flex items-center justify-center border-2 border-[#1a0a00] animate-bounce shadow-md">
-            {unseenCount > 9 ? "9+" : unseenCount}
+          <span className="absolute -top-1 -right-1 min-w-[20px] h-5 px-1 bg-red-600 text-white font-bold text-[10px] leading-none rounded-full flex items-center justify-center text-center border-2 border-[#1a0a00] shadow-md select-none pointer-events-none">
+            <span className="leading-none text-center block -translate-y-[0.5px]">
+              {unseenCount > 9 ? "9+" : unseenCount}
+            </span>
           </span>
         )}
       </button>
@@ -211,7 +213,7 @@ const PujaNotificationBell = () => {
           {/* Panel Header */}
           <div className="bg-[#1a0a00] px-5 py-4 flex items-center justify-between text-white">
             <div className="flex items-center gap-2">
-              <span className="text-xl text-[#FFD700]">🪔</span>
+              {/* <span className="text-xl text-[#FFD700]">🪔</span> */}
               <div>
                 <h3 className="font-bold text-sm text-[#FFD700] leading-none">Puja Updates & Alerts</h3>
                 <p className="text-[11px] text-white/60 mt-0.5">Live temple updates & sadhnas</p>
@@ -224,6 +226,7 @@ const PujaNotificationBell = () => {
             >
               ✕
             </button>
+            
           </div>
 
           {/* Push Notification Controls Bar */}
@@ -247,7 +250,7 @@ const PujaNotificationBell = () => {
                   title="Send a test notification to your device"
                   className="text-[11px] font-bold px-2.5 py-1 rounded-lg bg-[#8B0000]/10 text-[#8B0000] hover:bg-[#8B0000]/20 transition disabled:opacity-50"
                 >
-                  {testing ? "Sending…" : "Test Alert"}
+                  {testing ? "Sending…" : "Alert"}
                 </button>
               )}
 
@@ -317,7 +320,7 @@ const PujaNotificationBell = () => {
           {/* Footer */}
           <div className="bg-gray-50 border-t border-gray-100 p-3 text-center">
             <p className="text-[11px] text-gray-500">
-              Gupt Upasana Sacred Alerts • Powered by Web Push
+              Gupt Upasana Sacred Alerts
             </p>
           </div>
         </div>

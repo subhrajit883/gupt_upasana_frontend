@@ -32,14 +32,14 @@ const PujaPushNotificationPrompt = () => {
     try {
       await subscribeToPushNotifications();
       setShow(false);
-      toast.success("🙏 Divine alerts enabled! You will now receive sacred puja updates.", {
+      toast.success("Divine alerts enabled! You will now receive sacred puja updates.", {
         id: toastId,
         duration: 4000
       });
 
       // Send local welcome notification
-      await triggerImmediateNotification("🪔 Gupt Upasana Alerts Enabled", {
-        body: "Jai Mata Di! You will receive live updates on sacred pujas and temple events."
+      await triggerImmediateNotification("Gupt Upasana Alerts Enabled", {
+        body: "You will receive live updates on sacred pujas and temple events."
       });
     } catch (err) {
       console.error(err);

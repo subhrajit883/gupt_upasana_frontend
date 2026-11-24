@@ -12,7 +12,7 @@ export const emptyPujaForm = {
     message: "",
     pujaName: "",
     scheduledAt: "",
-    published: false,
+    published: true,
 };
 
 export const toDatetimeLocal = (value) => {

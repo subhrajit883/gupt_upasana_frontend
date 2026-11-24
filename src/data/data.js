@@ -4,17 +4,17 @@ export const chatbotConfig = {
     botName: "Gupt Upasana Sahayak",
     botSubtitle: "Divine Seva & Spiritual Assistance",
     logoPath: "/logo.png",
-    
+
     // Notification popup banner when user visits the site
     notification: {
-        title: "Namaste Devotee! 🙏",
+        title: "Namaste ! 🙏",
         message: "Have questions about our pujas, seva, or sacred temple?",
         actionText: "Chat with us",
     },
 
     // Initial greeting in the chat window
     greeting: {
-        title: "Jai Maa Kali! 🕉️",
+        title: "Jai Maa Kali!",
         text: "Welcome to Gupt Upasana — The Ancient Science of Tantra for Kaliyug. I am your divine assistant. How may I assist your spiritual journey today?",
         prompt: "Please choose one of the options below to know more:",
     },

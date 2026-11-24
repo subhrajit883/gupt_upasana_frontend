@@ -68,7 +68,7 @@ const PujaUpdateFormModal = ({ editing, form, setForm, saving, onSubmit, onClose
                         />
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {/* <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
                             <label className={labelClass}>Scheduled Date &amp; Time (Optional)</label>
                             <input
@@ -96,7 +96,7 @@ const PujaUpdateFormModal = ({ editing, form, setForm, saving, onSubmit, onClose
                                 </span>
                             </button>
                         </div>
-                    </div>
+                    </div> */}
 
                     <div className="flex items-center justify-end gap-3 pt-4 border-t border-[#f0ece4]">
                         <button
