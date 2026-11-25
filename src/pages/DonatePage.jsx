@@ -125,7 +125,7 @@ const PackageCard = ({ pkg }) => {
     const handleDonate = async () => {
         // Redirect to login if not signed in
         if (!isLoggedIn) {
-            navigate("/user/login", { state: { from: "/donate" } });
+            navigate("/auth", { state: { from: "/donate" } });
             return;
         }
 

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
 import {
-    Package,Plus,Pencil,Trash2,RefreshCw,X,Search,Filter,CheckCircle2,XCircle,AlertCircle,IndianRupee,CalendarDays,Sparkles,ListChecks,Gift,Layers,ImagePlus,Upload,
+    Package, Plus, Pencil, Trash2, RefreshCw, X, Search, Filter, CheckCircle2, XCircle, AlertCircle, IndianRupee, CalendarDays, Sparkles, ListChecks, Gift, Layers, ImagePlus, Upload,
 } from "lucide-react";
 import { donationUrl } from "../config/config";
 import { handleAdminAuthError } from "./adminAuthGuard";
@@ -113,10 +113,14 @@ const AdminDonPackage = () => {
     const stats = useMemo(() => {
         const active = packages.filter((p) => p.active);
         const custom = packages.filter((p) => p.allowCustomAmount);
+        const staticCount = packages.filter((p) => p.category === "static").length;
+        const dynamicCount = packages.filter((p) => p.category === "dynamic").length;
+
         return {
             total: packages.length,
             active: active.length,
-            inactive: packages.length - active.length,
+            static: staticCount,
+            dynamic: dynamicCount,
             custom: custom.length,
         };
     }, [packages]);
@@ -398,11 +402,10 @@ const AdminDonPackage = () => {
 
     const CategoryBadge = ({ category }) => (
         <span
-            className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs font-semibold capitalize ${
-                category === "dynamic"
-                    ? "bg-indigo-50 text-indigo-700 border-indigo-200"
-                    : "bg-[#fbf2d9] text-[#98701b] border-[#efdfae]"
-            }`}
+            className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs font-semibold capitalize ${category === "dynamic"
+                ? "bg-indigo-50 text-indigo-700 border-indigo-200"
+                : "bg-[#fbf2d9] text-[#98701b] border-[#efdfae]"
+                }`}
         >
             <Layers size={13} />
             {category || "static"}
@@ -411,11 +414,10 @@ const AdminDonPackage = () => {
 
     const ActiveBadge = ({ active }) => (
         <span
-            className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs font-semibold ${
-                active
-                    ? "bg-green-50 text-green-700 border-green-200"
-                    : "bg-gray-50 text-gray-500 border-gray-200"
-            }`}
+            className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs font-semibold ${active
+                ? "bg-green-50 text-green-700 border-green-200"
+                : "bg-gray-50 text-gray-500 border-gray-200"
+                }`}
         >
             {active ? <CheckCircle2 size={13} /> : <XCircle size={13} />}
             {active ? "Active" : "Inactive"}
@@ -426,7 +428,7 @@ const AdminDonPackage = () => {
         <div className="min-h-screen bg-[#faf8f3] p-4 sm:p-6 lg:p-8">
             {/* Header */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
-                <div>
+                {/* <div>
                     <div className="flex items-center gap-2 mb-2">
                         <div className="w-9 h-9 rounded-xl bg-[#4a0a0d] flex items-center justify-center">
                             <Package size={20} className="text-[#e7c66b]" />
@@ -441,7 +443,7 @@ const AdminDonPackage = () => {
                     <p className="text-sm text-gray-500 mt-1">
                         Create, edit and manage the donation packages offered to devotees.
                     </p>
-                </div>
+                </div> */}
 
                 <div className="flex items-center gap-3">
                     <button
@@ -480,11 +482,11 @@ const AdminDonPackage = () => {
                     color="bg-green-50 text-green-600"
                 />
                 <StatCard
-                    title="Inactive"
-                    value={stats.inactive}
-                    subtitle="Hidden from devotees"
-                    icon={XCircle}
-                    color="bg-gray-100 text-gray-500"
+                    title="Dynamic"
+                    value={` ${stats.dynamic}`}
+                    subtitle="Dynamic packages"
+                    icon={Layers}
+                    color="bg-indigo-50 text-indigo-600"
                 />
                 <StatCard
                     title="Custom Amount"
@@ -794,22 +796,19 @@ const AdminDonPackage = () => {
                                     <button
                                         type="button"
                                         onClick={() => setField("active", !form.active)}
-                                        className={`w-full flex items-center justify-between px-4 py-3 rounded-xl border text-sm font-semibold transition ${
-                                            form.active
-                                                ? "bg-green-50 border-green-200 text-green-700"
-                                                : "bg-gray-50 border-gray-200 text-gray-500"
-                                        }`}
+                                        className={`w-full flex items-center justify-between px-4 py-3 rounded-xl border text-sm font-semibold transition ${form.active
+                                            ? "bg-green-50 border-green-200 text-green-700"
+                                            : "bg-gray-50 border-gray-200 text-gray-500"
+                                            }`}
                                     >
                                         {form.active ? "Active" : "Inactive"}
                                         <span
-                                            className={`relative w-11 h-6 rounded-full transition ${
-                                                form.active ? "bg-green-500" : "bg-gray-300"
-                                            }`}
+                                            className={`relative w-11 h-6 rounded-full transition ${form.active ? "bg-green-500" : "bg-gray-300"
+                                                }`}
                                         >
                                             <span
-                                                className={`absolute top-0.5 w-5 h-5 rounded-full bg-white shadow transition-all ${
-                                                    form.active ? "left-[22px]" : "left-0.5"
-                                                }`}
+                                                className={`absolute top-0.5 w-5 h-5 rounded-full bg-white shadow transition-all ${form.active ? "left-[22px]" : "left-0.5"
+                                                    }`}
                                             />
                                         </span>
                                     </button>

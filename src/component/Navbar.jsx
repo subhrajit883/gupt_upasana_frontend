@@ -11,6 +11,7 @@ const UserIcon = ({ className = "w-4 h-4" }) => (
 
 const navLinks = [
     { label: "Home", path: "/" },
+    { label: "Book a Visit", path: "/book-visit" },
     // { label: "About", path: "/about" },
     // {
     //     label: "Pujas",
@@ -147,6 +148,16 @@ const Navbar = () => {
                                             >
                                                 <UserIcon className="w-4 h-4" />
                                                 View Profile
+                                            </Link>
+                                            <Link
+                                                to="/book-visit"
+                                                onClick={() => setUserMenuOpen(false)}
+                                                className="flex items-center gap-3 px-4 py-2.5 text-sm text-[#e7c652]/80 hover:text-[#e7c652] hover:bg-[#e7c652]/10 transition"
+                                            >
+                                                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                                </svg>
+                                                Book a Visit
                                             </Link>
                                             <Link
                                                 to="/my-donations"

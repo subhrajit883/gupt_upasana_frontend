@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Locate, Mail, Phone, Calendar, Clock, Sparkles, Building2, User } from "lucide-react";
 
 // ── Import local assets ───────────────────────────────────────────────────────
 import carousel1 from "../assets/carousel/gupt1.jpg";
@@ -44,7 +44,7 @@ const featuredPujas = [
 
 // ── Why Gupt Upasana ──────────────────────────────────────────────────────────
 const reasons = [
-    { icon: "📿", text: "Ancient Tantric Wisdom" },
+    // { icon: "📿", text: "Ancient Tantric Wisdom" },
     { icon: "🌿", text: "Spiritual Remedies for Life's Challenges" },
     { icon: "🔱", text: "Powerful Pujas & Sadhna" },
     { icon: "🧘", text: "Guidance from Experienced Sadhaks" },
@@ -132,7 +132,7 @@ const HomePage = () => {
 
                         {/* Plan Your Visit */}
                         <Link
-                            to="/contact"
+                            to="/book-visit"
                             className="group relative inline-flex items-center justify-center gap-3 px-8 sm:px-10 py-4 rounded-full overflow-hidden border border-[#e7c652]/70 bg-[#4a0a0d]/70 text-[#f7f1e3] font-bold text-sm sm:text-base tracking-wide shadow-[0_8px_30px_rgba(0,0,0,0.35)] backdrop-blur-md transition-all duration-500 hover:border-[#e7c652] hover:shadow-[0_0_25px_rgba(231,198,82,0.3)] hover:-translate-y-1"
                         >
                             <span className="absolute inset-0 bg-gradient-to-r from-[#e7c652]/0 via-[#e7c652]/15 to-[#e7c652]/0 -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
@@ -212,34 +212,63 @@ const HomePage = () => {
                             />
                         </div>
 
+
                         <div className="flex-1">
-                            <h3 className="text-[#8B0000] font-bold text-2xl mb-4">
-                                Gupt Upasana Mahakal–Mahakali Mandir
-                            </h3>
-                            <p className="text-gray-800 leading-8 mb-6">
-                                India is home to countless Shakti Peethas, Shiva temples, Hanuman shrines and centres dedicated to the Mahavidyas. Yet the presence of Dashamukhi Mahakali, Ekadashamukhi Hanuman, a ritual-consecrated Ashtadhatu Maa Baglamukhi, the Ashta Bhairavas and the fierce form of Maa Pratyangira within one sacred complex represents an exceptionally uncommon spiritual configuration.
 
-                                Located in Salt Lake, Kolkata, Gupt Upasana Mahakal–Mahakali Mandir, established in 1998, is not merely a place where several deities have been installed. It is envisioned as an integrated field of Shakta, Shaiva, Bhairava and Hanuman worship.
+                            {/* Heading */}
+                            <div className="mb-6">
+                                {/* <span className="inline-block text-[#8B0000] text-xs font-bold tracking-[0.25em] uppercase mb-3">
+                                    A Sacred Spiritual Destination
+                                </span> */}
 
-                                The temple brings together diverse streams of sacred worship within a single spiritual environment, reflecting the interconnected nature of Shakti, Shiva, Bhairava and Hanuman upasana.
-                            </p>
-                            {/* <Link
-                                to="/puja"
-                                className="inline-flex items-center gap-2 text-[#8B0000] font-semibold text-sm px-5 py-2.5 border border-[#8B0000] rounded-full transition-all duration-300 hover:bg-[#8B0000] hover:text-white hover:shadow-md"
-                            >
-                                Know More →
-                            </Link> */}
+                                <h3 className="text-[#8B0000] font-bold text-2xl sm:text-3xl leading-snug">
+                                    Gupt Upasana Mandir
+                                </h3>
+
+                                <div className="w-16 lg:w-56 h-1 mt-4 rounded-full bg-gradient-to-r from-[#C49A45] via-[#C49A45]/70 to-transparent"></div>
+                            </div>
+
+                            {/* Description */}
+                            <div className="space-y-5 text-gray-700 text-[15px] leading-8">
+
+                                <p>
+                                    Located in the heart of Salt Lake, Kolkata,{" "}
+                                    <strong className="text-[#1f1d1d]">Gupt Upasana Mandir</strong>,
+                                    popularly known as <strong className="text-[#1f1d1d]">Salt Lake Boro Maa</strong>,
+                                    is a sacred spiritual destination with a heritage of approximately
+                                    40 years. Revered by local residents and visited by devotees seeking
+                                    the blessings of the Divine Mother, the temple brings together
+                                    traditional Vedic and Tantric worship, devotion and compassionate service.
+                                </p>
+
+                                <p>
+                                    Unlike seasonal Kali Puja celebrations,{" "}
+                                    <strong className="text-[#1f1d1d]">Salt Lake Boro Maa resides here throughout the year. </strong>
+                                    Devotees come with faith to pray for family welfare, prosperity,
+                                    courage, peace of mind and the fulfilment of their heartfelt wishes.
+                                    Discover the divine presence of{" "}
+                                    <strong className="text-[#1f1d1d]">Mahakal and Mahakali</strong>,
+                                    and enquire about worship of Maa Baglamukhi, Maa Pratyangira,
+                                    11 Mukhi Hanuman and Ashta Bhairav.
+                                </p>
+
+                                <p>
+                                    Whether you wish to visit Maa, arrange a personalised havan,
+                                    offer flowers or bhog, support business-related spiritual rituals,
+                                    feed people in need or help community dogs, Gupt Upasana welcomes
+                                    your participation. Every voluntary offering is received with gratitude.
+                                </p>
+
+                            </div>
+
                         </div>
+
                     </div>
 
                 </div>
             </section>
 
             {/* donate section */}
-
-            {/* ═══════════════════════════════════════════════════════
-    DONATION INVITATION SECTION
-═══════════════════════════════════════════════════════ */}
             <section className="px-6 py-16 md:py-24 bg-[#f7f1e3]">
 
                 <div className="max-w-7xl mx-auto">
@@ -280,9 +309,9 @@ const HomePage = () => {
                             {/* Right Content */}
                             <div className="text-center md:text-left">
 
-                                <span className="inline-block text-[#e7c652] text-xs sm:text-sm font-bold tracking-[3px] uppercase border border-[#e7c652]/40 rounded-full px-5 py-2 mb-6">
+                                {/* <span className="inline-block text-[#e7c652] text-xs sm:text-sm font-bold tracking-[3px] uppercase border border-[#e7c652]/40 rounded-full px-5 py-2 mb-6">
                                     Support Gupt Upasana
-                                </span>
+                                </span> */}
 
                                 <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black font-serif text-[#f7f1e3] leading-tight mb-6">
                                     Your Seva, <br />
@@ -315,9 +344,9 @@ const HomePage = () => {
                                     </span>
                                 </Link>
 
-                                <p className="text-[#f7f1e3]/50 text-xs mt-5 tracking-wide">
+                                {/* <p className="text-[#f7f1e3]/50 text-xs mt-5 tracking-wide">
                                     Every contribution is voluntary and deeply appreciated.
-                                </p>
+                                </p> */}
 
                             </div>
                         </div>
@@ -325,29 +354,205 @@ const HomePage = () => {
                 </div>
             </section>
 
+            {/* book visit section */}
+            <section className="py-20 px-6 max-w-7xl mx-auto">
+                <div className="text-center mb-12">
+                    <span className="inline-block text-[#8B0000] text-xs font-bold tracking-[0.25em] uppercase mb-2">
+                        Darshan & Puja Enquiries
+                    </span>
+                    <h2 className="text-3xl sm:text-4xl font-black text-[#5a0000] font-serif">
+                        Book a Sacred Visit to Mandir
+                    </h2>
+                    <div className="w-24 h-1 mx-auto mt-4 rounded-full bg-gradient-to-r from-[#C49A45] via-[#8B0000] to-[#C49A45]" />
+                    <p className="mt-4 max-w-2xl mx-auto text-gray-700 text-sm sm:text-base leading-relaxed">
+                        Whether visiting for serene devotional darshan of Salt Lake Boro Maa, conducting sacred personal sankalpa, or scheduling corporate havan offerings — we warmly invite you to plan your visit.
+                    </p>
+                </div>
+
+                {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                
+                    <div className="bg-white rounded-3xl p-7 border border-[#8B0000]/10 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1">
+                        <div>
+                            <div className="w-14 h-14 rounded-2xl bg-[#8B0000]/8 text-[#8B0000] flex items-center justify-center text-2xl mb-5 group-hover:bg-[#8B0000] group-hover:text-[#FFD700] transition-colors">
+                                <User className="w-7 h-7" />
+                            </div>
+                            <h3 className="text-xl font-bold text-[#5a0000] mb-3">Individual & Family Darshan</h3>
+                            <p className="text-gray-600 text-sm leading-relaxed mb-4">
+                                Come with your family for holy darshan, archana, and prayers. Open to all devotees seeking peace of mind, family welfare, and health blessings.
+                            </p>
+                            <ul className="space-y-2 text-xs text-gray-500 mb-6">
+                                <li className="flex items-center gap-2">
+                                    <span className="text-[#8B0000]">✓</span> Daily Boro Maa Darshan
+                                </li>
+                                <li className="flex items-center gap-2">
+                                    <span className="text-[#8B0000]">✓</span> Flowers & Bhog Offerings
+                                </li>
+                                <li className="flex items-center gap-2">
+                                    <span className="text-[#8B0000]">✓</span> Pranaam & Holy Charanamrita
+                                </li>
+                            </ul>
+                        </div>
+                        <Link
+                            to="/book-visit"
+                            className="w-full text-center py-2.5 px-4 rounded-xl border border-[#8B0000]/20 text-[#8B0000] font-bold text-sm hover:bg-[#8B0000] hover:text-[#FFD700] transition"
+                        >
+                            Schedule Devotee Visit →
+                        </Link>
+                    </div>
+
+            
+                    <div className="bg-white rounded-3xl p-7 border-2 border-[#e7c652]/60 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1 relative overflow-hidden">
+                        <div className="absolute top-0 right-0 bg-gradient-to-l from-[#e7c652] to-[#f7e4a0] text-[#4a0a0d] text-[10px] font-black uppercase px-3 py-1 rounded-bl-xl tracking-wider">
+                            Popular for Companies
+                        </div>
+                        <div>
+                            <div className="w-14 h-14 rounded-2xl bg-[#e7c652]/20 text-[#8B0000] flex items-center justify-center text-2xl mb-5 group-hover:bg-[#8B0000] group-hover:text-[#FFD700] transition-colors">
+                                <Building2 className="w-7 h-7" />
+                            </div>
+                            <h3 className="text-xl font-bold text-[#5a0000] mb-3">Corporate & Organisation Seva</h3>
+                            <p className="text-gray-600 text-sm leading-relaxed mb-4">
+                                Specially structured for corporate directors, business leaders, and institutions wishing to seek prosperity and hurdle-free business ventures.
+                            </p>
+                            <ul className="space-y-2 text-xs text-gray-500 mb-6">
+                                <li className="flex items-center gap-2">
+                                    <span className="text-[#8B0000]">✓</span> Institution / Company Registration
+                                </li>
+                                <li className="flex items-center gap-2">
+                                    <span className="text-[#8B0000]">✓</span> Dedicated Contact Representative
+                                </li>
+                                <li className="flex items-center gap-2">
+                                    <span className="text-[#8B0000]">✓</span> Special Arrangement & Puja Timings
+                                </li>
+                            </ul>
+                        </div>
+                        <Link
+                            to="/book-visit"
+                            className="w-full text-center py-2.5 px-4 rounded-xl bg-gradient-to-r from-[#8B0000] to-[#5a0000] text-[#FFD700] font-bold text-sm hover:from-[#5a0000] hover:to-[#4a0a0d] shadow transition"
+                        >
+                            Book Corporate Visit →
+                        </Link>
+                    </div>
+
+     
+                    <div className="bg-white rounded-3xl p-7 border border-[#8B0000]/10 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1">
+                        <div>
+                            <div className="w-14 h-14 rounded-2xl bg-[#8B0000]/8 text-[#8B0000] flex items-center justify-center mb-5 group-hover:bg-[#8B0000] group-hover:text-[#FFD700] transition-colors">
+                                <svg
+                                    viewBox="0 0 100 100"
+                                    className="w-9 h-9"
+                                    fill="currentColor"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    aria-label="Hindu Om symbol"
+                                    role="img"
+                                >
+                                    <text
+                                        x="50"
+                                        y="76"
+                                        textAnchor="middle"
+                                        fontSize="78"
+                                        fontFamily="Noto Serif Devanagari, serif"
+                                        fontWeight="600"
+                                    >
+                                        ॐ
+                                    </text>
+                                </svg>
+                            </div>
+                            <h3 className="text-xl font-bold text-[#5a0000] mb-3">Sankalp & Special Pujas</h3>
+                            <p className="text-gray-600 text-sm leading-relaxed mb-4">
+                                Enquire about specialised tantric & vedic pujas, including Maa Baglamukhi, Maa Pratyangira, 11 Mukhi Hanuman, and Mahakal Bhairav rituals.
+                            </p>
+                            <ul className="space-y-2 text-xs text-gray-500 mb-6">
+                                <li className="flex items-center gap-2">
+                                    <span className="text-[#8B0000]">✓</span> Personalised Sacred Sankalpa
+                                </li>
+                                <li className="flex items-center gap-2">
+                                    <span className="text-[#8B0000]">✓</span> Special Havan & Tantra Rituals
+                                </li>
+                                <li className="flex items-center gap-2">
+                                    <span className="text-[#8B0000]">✓</span> Personal Guidance from Temple Sevaks
+                                </li>
+                            </ul>
+                        </div>
+                        <Link
+                            to="/book-visit"
+                            className="w-full text-center py-2.5 px-4 rounded-xl border border-[#8B0000]/20 text-[#8B0000] font-bold text-sm hover:bg-[#8B0000] hover:text-[#FFD700] transition"
+                        >
+                            Enquire for Special Puja →
+                        </Link>
+                    </div>
+                </div> */}
+
+                {/* Direct CTA Banner */}
+                <div className="rounded-3xl bg-gradient-to-r from-[#4a0a0d] via-[#650b10] to-[#4a0a0d] p-8 sm:p-10 border border-[#e7c652]/30 shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">
+                    <div className="text-center md:text-left">
+                        {/* <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#e7c652]/15 text-[#e7c652] text-xs font-bold uppercase tracking-wider mb-2">
+                            <Calendar size={13} /> Advance Booking Available
+                        </div> */}
+                        <h3 className="text-2xl sm:text-3xl font-black text-[#FFD700] font-serif">
+                            Plan Your Sacred Mandir Darshan
+                        </h3>
+                        <p className="text-white/80 text-sm mt-1 max-w-xl">
+                            Register your appointment in advance to ensure dedicated seva assistance and smooth entry during holy puja hours.
+                        </p>
+                    </div>
+                    <div className="flex flex-wrap items-center justify-center gap-3 shrink-0">
+                        <Link
+                            to="/book-visit"
+                            className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-gradient-to-r from-[#e7c652] to-[#d4af37] text-[#4a0a0d] font-black text-sm tracking-wide shadow-lg hover:brightness-110 transition-all hover:scale-105"
+                        >
+                            <Calendar size={16} />
+                            Book a Visit Now
+                        </Link>
+                        {/* <Link
+                            to="/contact"
+                            className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full border border-white/20 text-white/90 hover:text-white hover:bg-white/10 font-bold text-sm transition"
+                        >
+                            Contact Temple
+                        </Link> */}
+                    </div>
+                </div>
+            </section>
+
+            {/* visitors guideline and contact section */}
             <section className="py-6 pb-20 px-6 max-w-7xl mx-auto mt-3">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
 
                     {/* Visitors Guideline */}
                     <div className="bg-white border border-[#8B0000]/10 rounded-2xl p-7 shadow-sm hover:shadow-md transition-shadow">
                         <h3 className="font-bold text-[#8B0000] text-lg mb-4 flex items-center gap-2">
-                            <span className="w-8 h-8 rounded-full bg-[#8B0000]/10 flex items-center justify-center">🛕</span>
+                            {/* <span className="w-8 h-8 rounded-full bg-[#8B0000]/10 flex items-center justify-center">🛕</span> */}
                             Visitors Guideline
                         </h3>
-                        <div className="flex gap-4 items-start">
-                            <span className="text-5xl opacity-15 select-none flex-shrink-0">🛕</span>
-                            <p className="text-gray-600 text-sm leading-relaxed">
-                                Public darshan of Mahakal and Mahakali is{" "}
-                                <strong className="text-[#8B0000]">available in the open section</strong>.
-                                The inner mandir is restricted for general visitors.
-                            </p>
+                        <div className="space-y-3">
+                            <div className="flex gap-3 items-start">
+                                <span className="text-[#8B0000] mt-0.5">•</span>
+                                <p className="text-gray-600 text-sm leading-relaxed">
+                                    Public Boro Maa darshan is open to devotees according to temple timings.
+                                </p>
+                            </div>
+
+                            <div className="flex gap-3 items-start">
+                                <span className="text-[#8B0000] mt-0.5">•</span>
+                                <p className="text-gray-600 text-sm leading-relaxed">
+                                    Access to the Gupt Mandir and restricted deities or specialised rituals remains subject to temple protocols. No mandatory donation is required for public darshan.
+                                </p>
+                            </div>
+
+                            <div className="flex gap-3 items-start">
+                                <span className="text-[#8B0000] mt-0.5">•</span>
+                                <p className="text-gray-600 text-sm leading-relaxed">
+                                    For information concerning puja, sankalpa, and devotional offerings, please contact Gupt Upasana through email.
+
+
+                                </p>
+                            </div>
                         </div>
                     </div>
 
                     {/* Why Gupt Upasana */}
                     <div className="bg-gradient-to-br from-[#8B0000] to-[#5a0000] rounded-2xl p-7 text-white shadow-lg">
                         <h3 className="font-bold text-[#e7c652] text-lg mb-5 flex items-center gap-2">
-                            <span className="w-8 h-8 rounded-full bg-[#e7c652]/10 flex items-center justify-center">🔱</span>
+                            {/* <span className="w-8 h-8 rounded-full bg-[#e7c652]/10 flex items-center justify-center"></span> */}
                             Why Gupt Upasana?
                         </h3>
                         <ul className="space-y-3.5">
@@ -365,20 +570,19 @@ const HomePage = () => {
                     {/* Address */}
                     <div className="bg-white border border-[#8B0000]/10 rounded-2xl p-7 shadow-sm hover:shadow-md transition-shadow">
                         <h3 className="font-bold text-[#8B0000] text-lg mb-4 flex items-center gap-2">
-                            <span className="w-8 h-8 rounded-full bg-[#8B0000]/10 flex items-center justify-center">📍</span>
-                            Our Address
+                            <span className="w-8 h-8 p-2 rounded-full bg-[#8B0000]/10 flex items-center justify-center"><Phone /></span>
+                            Contact Us
                         </h3>
                         <div className="space-y-4 text-sm text-gray-600">
                             <div className="flex items-start gap-3">
-                                <span className="text-[#8B0000] text-base mt-0.5 flex-shrink-0">📍</span>
+                                <span className="text-[#8B0000] text-base mt-0.5 flex-shrink-0"><Locate /></span>
                                 <span className="leading-relaxed">
-                                    BC 160, BC Block, Sector 1,<br />
-                                    Bidhannagar, Kolkata,<br />
-                                    West Bengal 700064
+                                    BC 160, Sector 1, Salt Lake, Kolkata – 700064, West Bengal, India.<br />
+
                                 </span>
                             </div>
                             <div className="flex items-start gap-3">
-                                <span className="text-[#8B0000] text-base flex-shrink-0">✉️</span>
+                                <span className="text-[#8B0000] text-base flex-shrink-0"><Mail /></span>
                                 <div>
                                     <p className="font-semibold text-gray-800 mb-0.5">Email Us</p>
                                     <a
@@ -386,6 +590,18 @@ const HomePage = () => {
                                         className="text-[#8B0000] hover:underline break-all"
                                     >
                                         guptupasana@gmail.com
+                                    </a>
+                                </div>
+                            </div>
+                            <div className="flex items-start gap-3">
+                                <span className="text-[#8B0000] text-base flex-shrink-0"><Phone /></span>
+                                <div>
+                                    <p className="font-semibold text-gray-800 mb-0.5">Phone</p>
+                                    <a
+                                        href="tel:+919674933763"
+                                        className="text-[#8B0000] hover:underline break-all"
+                                    >
+                                        +91 9674933763
                                     </a>
                                 </div>
                             </div>

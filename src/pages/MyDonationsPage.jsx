@@ -64,20 +64,20 @@ const MyDonationsPage = () => {
             {/* Hero Header */}
             <div className="relative overflow-hidden bg-[#4a0a0d] px-5 py-14 text-center sm:py-16">
                 {/* Decorative elements */}
-                <div className="absolute -left-16 -top-20 h-64 w-64 rounded-full border border-[#e7c66b]/10" />
-                <div className="absolute -right-16 -bottom-24 h-72 w-72 rounded-full border border-[#e7c66b]/10" />
-                <div className="absolute left-1/2 top-0 h-40 w-40 -translate-x-1/2 rounded-full bg-[#e7c66b]/5 blur-3xl" />
+                {/* <div className="absolute -left-16 -top-20 h-64 w-64 rounded-full border border-[#e7c66b]/10" /> */}
+                {/* <div className="absolute -right-16 -bottom-24 h-72 w-72 rounded-full border border-[#e7c66b]/10" />
+                <div className="absolute left-1/2 top-0 h-40 w-40 -translate-x-1/2 rounded-full bg-[#e7c66b]/5 blur-3xl" /> */}
 
                 <div className="relative z-10 mx-auto max-w-2xl">
-                    <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-[#e7c66b]/30 bg-[#e7c66b]/10 px-4 py-2">
+                    {/* <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-[#e7c66b]/30 bg-[#e7c66b]/10 px-4 py-2">
                         <span className="text-[#e7c66b]">✦</span>
                         <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#e7c66b]">
                             Your Sacred Journey
                         </span>
                         <span className="text-[#e7c66b]">✦</span>
-                    </div>
+                    </div> */}
 
-                    <h1 className="text-3xl font-black tracking-tight text-[#e7c66b] sm:text-4xl md:text-5xl">
+                    <h1 className="text-3xl font-black font-medium  text-[#e7c66b] sm:text-4xl md:text-5xl">
                         My Donations
                     </h1>
 
@@ -134,7 +134,7 @@ const MyDonationsPage = () => {
                         <div className="relative overflow-hidden rounded-2xl border border-green-100 bg-white p-5 shadow-[0_5px_25px_rgba(74,10,13,0.05)]">
                             <div className="absolute -right-5 -top-5 h-24 w-24 rounded-full " />
                             <div className="relative">
-                                <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl ">
+                                <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-[#4a0a0d]/5">
                                     <span className="text-xl">✓</span>
                                 </div>
                                 <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-gray-400">
@@ -223,7 +223,7 @@ const MyDonationsPage = () => {
                                                 🪔
                                             </div> */}
                                             <div className="min-w-0">
-                                                <h3 className="break-words text-base font-extrabold text-[#4a0a0d] sm:text-lg">
+                                                <h3 className="break-words text-base font-bold text-[#4a0a0d] sm:text-lg">
                                                     {d.packageNameSnapshot || d.purpose || "General Donation"}
                                                 </h3>
                                                 <p className="mt-1 text-xs text-gray-400">
@@ -234,7 +234,7 @@ const MyDonationsPage = () => {
                                     </div>
 
                                     <div className="flex shrink-0 items-center justify-between gap-3 sm:flex-col sm:items-end">
-                                        <p className="text-xl font-black tracking-tight text-[#4a0a0d] sm:text-2xl">
+                                        <p className="text-xl font-black font-medium tracking-tight text-[#4a0a0d] sm:text-2xl">
                                             {formatINR(d.amount)}
                                         </p>
                                         <span
@@ -251,8 +251,8 @@ const MyDonationsPage = () => {
                                 {/* Payment Details */}
                                 {(d.receiptNo || d.razorpayPaymentId || d.failureReason) && (
                                     <div className="mt-5 border-t border-dashed border-[#e7c66b]/40 pt-4">
-                                        <div className="grid gap-2 sm:grid-cols-2">
-                                            {d.receiptNo && (
+                                        <div className="grid gap-1 sm:grid-cols-1">
+                                            {/* {d.receiptNo && (
                                                 <div className="rounded-xl bg-[#faf6ed] px-3 py-2.5">
                                                     <p className="text-[9px] font-bold uppercase tracking-widest text-gray-400">
                                                         Receipt Number
@@ -261,7 +261,7 @@ const MyDonationsPage = () => {
                                                         {d.receiptNo}
                                                     </p>
                                                 </div>
-                                            )}
+                                            )} */}
 
                                             {d.razorpayPaymentId && (
                                                 <div className="rounded-xl bg-[#faf6ed] px-3 py-2.5">

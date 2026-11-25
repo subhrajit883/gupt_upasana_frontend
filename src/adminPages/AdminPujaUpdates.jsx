@@ -22,7 +22,7 @@ const AdminPujaUpdates = () => {
     return (
         <div className="min-h-screen bg-[#faf8f3] p-4 sm:p-6 lg:p-8">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
-                <div>
+                {/* <div>
                     <div className="flex items-center gap-2 mb-2">
                         <div className="w-9 h-9 rounded-xl bg-[#4a0a0d] flex items-center justify-center">
                             <Bell size={20} className="text-[#e7c66b]" />
@@ -33,7 +33,7 @@ const AdminPujaUpdates = () => {
                     </div>
                     <h1 className="text-2xl sm:text-3xl font-bold text-[#4a0a0d]">Puja Updates & Push Alerts</h1>
                     <p className="text-sm text-gray-500 mt-1">Manage announcements and broadcast push alerts to devotee devices.</p>
-                </div>
+                </div> */}
                 <div className="flex items-center gap-3">
                     <button
                         onClick={fetchUpdates} disabled={loading}

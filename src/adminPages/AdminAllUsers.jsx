@@ -19,6 +19,12 @@ const formatDate = (d) =>
 const getInitials = (name = "") =>
     name.trim().split(/\s+/).slice(0, 2).map((w) => w[0]?.toUpperCase()).join("");
 
+const getUserPhoto = (u) =>
+    u?.UserImg?.url ||
+    u?.userImg?.url ||
+    (typeof u?.UserImg === "string" ? u.UserImg : null) ||
+    (typeof u?.userImg === "string" ? u.userImg : null);
+
 // ── Avatar colours by index ───────────────────────────────────────────────────
 const avatarColors = [
     "bg-[#f8edf0] text-[#4a0a0d]",
@@ -109,8 +115,16 @@ const UserDetailModal = ({ user, colorClass, onClose }) => {
 
                 {/* Avatar + badges */}
                 <div className="flex items-center gap-4 px-6 pt-6 pb-4 border-b border-gray-100">
-                    <div className={`w-16 h-16 rounded-full flex items-center justify-center font-black text-xl flex-shrink-0 ${colorClass}`}>
-                        {getInitials(user.name)}
+                    <div className={`w-16 h-16 rounded-full flex items-center justify-center font-black text-xl flex-shrink-0 overflow-hidden ${colorClass}`}>
+                        {getUserPhoto(user) ? (
+                            <img
+                                src={getUserPhoto(user)}
+                                alt={user.name}
+                                className="w-full h-full object-cover"
+                            />
+                        ) : (
+                            getInitials(user.name)
+                        )}
                     </div>
                     <div className="flex flex-col gap-2">
                         <div className="flex gap-2 flex-wrap">
@@ -127,6 +141,9 @@ const UserDetailModal = ({ user, colorClass, onClose }) => {
                         { icon: <Mail size={15} />, label: "Email", value: user.email },
                         { icon: <Phone size={15} />, label: "Phone", value: user.phone },
                         { icon: <MapPin size={15} />, label: "Address", value: user.address },
+                        ...(user.companyName
+                            ? [{ icon: <Building2 size={15} />, label: "Company / Org", value: user.companyName }]
+                            : []),
                         { icon: <CalendarDays size={15} />, label: "Joined", value: formatDate(user.createdAt) },
                         { icon: <CalendarDays size={15} />, label: "Last Updated", value: formatDate(user.updatedAt) },
                     ].map(({ icon, label, value }) => (
@@ -137,6 +154,18 @@ const UserDetailModal = ({ user, colorClass, onClose }) => {
                             <p className="text-sm font-semibold text-[#4a0a0d] break-words">{value || "N/A"}</p>
                         </div>
                     ))}
+
+                    {/* Sankalp Card if available */}
+                    {user.sankalp && (
+                        <div className="sm:col-span-2 p-4 rounded-xl bg-gradient-to-r from-[#fdf8f0] via-[#fffbf3] to-[#fdf8f0] border border-[#e7c66b]/40">
+                            <p className="text-[11px] uppercase tracking-wider text-[#9c7b36] font-bold flex items-center gap-1.5 mb-1.5">
+                                <span>🪷</span> Sacred Devotee Sankalp
+                            </p>
+                            <p className="text-sm font-semibold text-[#4a0a0d] italic break-words">
+                                "{user.sankalp}"
+                            </p>
+                        </div>
+                    )}
                 </div>
 
                 <div className="px-6 pb-6 flex justify-end">
@@ -229,9 +258,8 @@ const AdminAllUsers = () => {
     return (
         <div className="min-h-screen bg-[#faf8f3] p-4 sm:p-6 lg:p-8">
 
-            {/* ── Page Header ───────────────────────────────────────────────── */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
-                <div>
+                {/* <div>
                     <div className="flex items-center gap-2 mb-2">
                         <div className="w-9 h-9 rounded-xl bg-[#4a0a0d] flex items-center justify-center">
                             <Users size={20} className="text-[#e7c66b]" />
@@ -242,7 +270,7 @@ const AdminAllUsers = () => {
                     </div>
                     <h1 className="text-2xl sm:text-3xl font-bold text-[#4a0a0d]">All Devotees</h1>
                     <p className="text-sm text-gray-500 mt-1">View and manage all registered devotee accounts.</p>
-                </div>
+                </div> */}
 
                 <button
                     onClick={fetchUsers}
@@ -368,14 +396,29 @@ const AdminAllUsers = () => {
                                             {/* Devotee */}
                                             <td className="px-5 py-4">
                                                 <div className="flex items-center gap-3">
-                                                    <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm shrink-0 ${colorClass}`}>
-                                                        {getInitials(user.name)}
+                                                    <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm shrink-0 overflow-hidden ${colorClass}`}>
+                                                        {getUserPhoto(user) ? (
+                                                            <img
+                                                                src={getUserPhoto(user)}
+                                                                alt={user.name}
+                                                                className="w-full h-full object-cover"
+                                                            />
+                                                        ) : (
+                                                            getInitials(user.name)
+                                                        )}
                                                     </div>
                                                     <div>
                                                         <p className="text-sm font-semibold text-gray-800">{user.name}</p>
-                                                        <p className="text-xs text-gray-400 font-mono mt-0.5">
-                                                            {user._id.slice(-8)}
-                                                        </p>
+                                                        {user.companyName ? (
+                                                            <p className="text-xs text-[#9c7b36] font-medium flex items-center gap-1 mt-0.5">
+                                                                <Building2 size={11} className="shrink-0" />
+                                                                <span className="truncate max-w-[130px]">{user.companyName}</span>
+                                                            </p>
+                                                        ) : (
+                                                            <p className="text-xs text-gray-400 font-mono mt-0.5">
+                                                                {user._id.slice(-8)}
+                                                            </p>
+                                                        )}
                                                     </div>
                                                 </div>
                                             </td>

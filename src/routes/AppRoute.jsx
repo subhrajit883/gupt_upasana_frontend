@@ -24,6 +24,7 @@ import ForgotPassword from "../pages/ForgotPassword";
 import ResetPassword from "../pages/ResetPassword";
 import AdminAllUsers from "../adminPages/AdminAllUsers";
 import AboutPage from "../pages/AboutPage";
+import BookVisitPage from "../pages/BookVisitPage";
 
 // Redirect admin based on token
 const AdminRedirect = () => {
@@ -62,6 +63,7 @@ const AppRoute = () => {
                         path="/donate/success"
                         element={<DonationSuccessPage />}
                     />
+                    <Route path="/book-visit" element={<BookVisitPage />} />
                     <Route path="/my-donations" element={<MyDonationsPage />} />
                     <Route path="/my-profile" element={<MyProfilePage />} />
                     <Route path="/auth" element={<AuthPage />} />
@@ -107,6 +109,14 @@ const AppRoute = () => {
                 </Route>
 
                 {/* Unmatched User Routes */}
+                <Route
+                    path="/user/login"
+                    element={<Navigate to="/auth" replace />}
+                />
+                <Route
+                    path="/user/register"
+                    element={<Navigate to="/auth" replace />}
+                />
                 <Route
                     path="/user/*"
                     element={<Navigate to="/" replace />}

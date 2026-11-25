@@ -13,7 +13,10 @@ export const authUrl = {
     allUser: `${BASE_URL}/api/users`
 };
 
-
+export const bookVisitUrl = {
+    create: `${BASE_URL}/api/bookVisits`,
+    getbyUser: `${BASE_URL}/api/bookVisits/my`
+};
 export const pujaUpdatesUrl = {
     get: `${BASE_URL}/api/puja-updates`,
     adminGetAll: `${BASE_URL}/api/puja-updates/admin/all`,
