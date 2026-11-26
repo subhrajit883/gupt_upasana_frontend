@@ -257,14 +257,8 @@ const BookVisitPage = () => {
                 </div>
 
                 <div className="relative z-10 max-w-5xl mx-auto px-6 pt-14 pb-24 text-center">
-                    <div className="inline-flex items-center gap-2 bg-[#FFD700]/10 border border-[#FFD700]/25 rounded-full px-5 py-2 mb-4">
-                        <span className="w-2 h-2 rounded-full bg-[#FFD700] animate-pulse" />
-                        <span className="text-[#FFD700] text-xs tracking-[0.25em] uppercase font-bold">
-                            Devotee Darshan & Puja Registration
-                        </span>
-                    </div>
 
-                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-[#FFD700] font-serif mb-4 leading-tight">
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-[#e7c66b] font-serif mb-4 leading-tight">
                         Book a Visit to Gupt Upasana Mandir
                     </h1>
 

@@ -11,8 +11,9 @@ const UserIcon = ({ className = "w-4 h-4" }) => (
 
 const navLinks = [
     { label: "Home", path: "/" },
+    { label: "About", path: "/about" },
     { label: "Book a Visit", path: "/book-visit" },
-    // { label: "About", path: "/about" },
+    { label: "Services", path: "/services" },
     // {
     //     label: "Pujas",
     //     path: "/pujas",

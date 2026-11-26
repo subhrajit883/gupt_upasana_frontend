@@ -15,7 +15,9 @@ export const authUrl = {
 
 export const bookVisitUrl = {
     create: `${BASE_URL}/api/bookVisits`,
-    getbyUser: `${BASE_URL}/api/bookVisits/my`
+    getbyUser: `${BASE_URL}/api/bookVisits/my`,
+    getbyAdmin: `${BASE_URL}/api/bookVisits/admin/all`,
+    statusByAdmin: `${BASE_URL}/api/bookVisits/admin/status`
 };
 export const pujaUpdatesUrl = {
     get: `${BASE_URL}/api/puja-updates`,
@@ -38,4 +40,23 @@ export const donationUrl = {
     my: `${BASE_URL}/api/donations/my`,
     getById: (id) => `${BASE_URL}/api/donations/${id}`,
     adminGetAll: `${BASE_URL}/api/donations/admin/all`,
+};
+
+export const serviceUrl = {
+    packages: `${BASE_URL}/api/services`,
+    adminAll: `${BASE_URL}/api/services/admin/all`,
+    getById: (id) => `${BASE_URL}/api/services/${id}`,
+    create: `${BASE_URL}/api/services`,
+    update: (id) => `${BASE_URL}/api/services/${id}`,
+    delete: (id) => `${BASE_URL}/api/services/${id}`,
+};
+
+export const serviceBookingUrl = {
+    createOrder: `${BASE_URL}/api/service-bookings/create-order`,
+    verifyPayment: `${BASE_URL}/api/service-bookings/verify-payment`,
+    my: `${BASE_URL}/api/service-bookings/my`,
+    getById: (id) => `${BASE_URL}/api/service-bookings/${id}`,
+    adminGetAll: `${BASE_URL}/api/service-bookings/admin/all`,
+    adminGetById: (id) => `${BASE_URL}/api/service-bookings/admin/${id}`,
+    updateStatus: (id) => `${BASE_URL}/api/service-bookings/${id}/status`,
 };

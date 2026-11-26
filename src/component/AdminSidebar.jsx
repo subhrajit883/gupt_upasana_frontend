@@ -3,6 +3,7 @@ import toast from "react-hot-toast";
 import {
     IndianRupee,
     Package,
+    Sparkles,
     Bell,
     LogOut,
     PanelLeftClose,
@@ -11,15 +12,55 @@ import {
 } from "lucide-react";
 
 const TOKEN_KEY = "admin_gupt";
+const PujaKalashIcon = ({ size = 20, className = "" }) => {
+    return (
+        <svg
+            width={size}
+            height={size}
+            viewBox="0 0 64 64"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className={className}
+        >
+            <g
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            >
+                {/* Coconut */}
+                <path d="M24 10 Q32 3 40 10 L38 20 H26 Z" />
+
+                {/* Kalash Leaves */}
+                <path d="M26 19 Q16 8 13 15 Q17 24 27 24" />
+                <path d="M38 19 Q48 8 51 15 Q47 24 37 24" />
+
+                {/* Kalash Body */}
+                <path d="M26 21 Q19 30 20 40 Q21 52 32 55 Q43 52 44 40 Q45 30 38 21 Z" />
+
+                {/* Decorative Bands */}
+                <path d="M22 31 Q32 36 42 31" />
+                <path d="M20 44 Q32 50 44 44" />
+
+                {/* Base */}
+                <path d="M25 55 H39" />
+            </g>
+        </svg>
+    );
+};
 
 const navItems = [
     { label: "Donation", to: "/admin/donations", icon: IndianRupee },
     { label: "Donation Package", to: "/admin/donation-packages", icon: Package },
+    { label: "Services", to: "/admin/services", icon: PujaKalashIcon },
     { label: "Puja Updates", to: "/admin/puja-updates", icon: Bell },
     { label: "All Users", to: "/admin/all-users", icon: User },
 ];
 
+
+
 const AdminSidebar = ({ open, onClose, onOpen }) => {
+
     const navigate = useNavigate();
 
     const handleLogout = () => {

@@ -25,6 +25,8 @@ import ResetPassword from "../pages/ResetPassword";
 import AdminAllUsers from "../adminPages/AdminAllUsers";
 import AboutPage from "../pages/AboutPage";
 import BookVisitPage from "../pages/BookVisitPage";
+import ServiceBookingPage from "../pages/ServiceBookingPage";
+import AdminServicePage from "../adminPages/AdminServicePage";
 
 // Redirect admin based on token
 const AdminRedirect = () => {
@@ -64,6 +66,11 @@ const AppRoute = () => {
                         element={<DonationSuccessPage />}
                     />
                     <Route path="/book-visit" element={<BookVisitPage />} />
+                    <Route path="/services" element={<ServiceBookingPage />} />
+                    <Route
+                        path="/service-booking"
+                        element={<Navigate to="/services" replace />}
+                    />
                     <Route path="/my-donations" element={<MyDonationsPage />} />
                     <Route path="/my-profile" element={<MyProfilePage />} />
                     <Route path="/auth" element={<AuthPage />} />
@@ -97,6 +104,10 @@ const AppRoute = () => {
                     <Route
                         path="/admin/donation-packages"
                         element={<AdminDonPackage />}
+                    />
+                    <Route
+                        path="/admin/services"
+                        element={<AdminServicePage />}
                     />
                     <Route
                         path="/admin/puja-updates"
